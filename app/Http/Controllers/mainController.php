@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 
 class mainController extends Controller
 {
-    public function index(){
-        return view('index');
+    public function home(){
+        return view('home');
     }
     public function about(){
-        return view('index');
+        return view('home');
     }
     public function projects(){
-        return view('index');
+        return view('home');
     }
     public function events(){
-        return view('index');
+        return view('home');
     }
     public function contact(){
-        return view('index');
+        return view('home');
     }
 }
