@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@500&display=swap');
 
+@font-face {
+    font-family: 'Sao Francisco Semi Bold';
+    src: url('../fonts/saoFransciscoSemibold.otf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sao Francisco Bold';
+    src: url('../fonts/saoFransciscoBold.otf');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
     font-family: 'Manrope', sans-serif;
     font-weight: normal;
@@ -148,7 +162,7 @@ footer {
                 background-color: black;
                 color: #fff;
                 height: 50px;
-                font-family: "saoFrancisco", sans-serif;
+                font-family: "Sao Francisco Semi Bold", sans-serif;
                 cursor: pointer;
             }
 

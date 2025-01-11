@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\mainController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [mainController::class, 'home'])->name('home');
-Route::get('/about', [mainController::class, 'about'])->name('about');
-Route::get('/projects', [mainController::class, 'projects'])->name('projects');
-Route::get('/events', [mainController::class, 'events'])->name('events');
-Route::get('/contact', [mainController::class, 'contact'])->name('contact');
+Route::controller(MainController::class)->group(function () {
+  Route::get('/',  'home')->name('home');
+  Route::get('/about',  'about')->name('about');
+  Route::get('/projects',  'projects')->name('projects');
+  Route::get('/events',  'events')->name('events');
+  Route::get('/contact',  'contact')->name('contact');
+});
