@@ -1,9 +1,11 @@
 @extends('layouts.main')
 
 @section('title')
-    <title>Seja bem vindo</title>
+    <title></title>
 @endsection
 
 @section('content')
     @include('layouts.navbar')
+
+    @include('layouts.footer')
 @endsection

@@ -3,7 +3,7 @@
         <img src="{{ asset('assets/images/logo.png') }}" alt="">
     </div>
     <div class="nome">
-        <a href="{{ route('index') }}"><p>Igreja Metodista Wesleyana <br> em Vila Elmira</p></a>
+        <a href="{{ route('home') }}"><p>Igreja Metodista Wesleyana <br> em Vila Elmira</p></a>
         
     </div>
     <div class="links">
