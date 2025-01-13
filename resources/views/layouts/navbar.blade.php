@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <img src="{{ asset('assets/images/logo.png') }}" alt="">
+        <img src="{{ asset('assets/images/logo.svg') }}" alt="">
     </div>
     <div class="nome">
         <a href="{{ route('home') }}"><p>Igreja Metodista Wesleyana <br> em Vila Elmira</p></a>

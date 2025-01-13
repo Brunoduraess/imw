@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Sao Francisco Regular';
+    src: url('../fonts/saoFranciscoRegular.otf');
+    font-weight: 300;
+    font-style: normal;
+}
 
 @font-face {
     font-family: 'Sao Francisco Semi Bold';
@@ -15,7 +21,7 @@
 }
 
 body {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Sao Francisco Regular', sans-serif;
     font-weight: normal;
     margin: 0;
 }
@@ -54,12 +60,12 @@ body {
     }
 
     & .links {
-        position: fixed;
-        right: 5%;
+        margin-left: auto;
         display: flex;
         align-items: center;
         width: auto;
-        gap: 5%;
+        gap: 1rem;
+        flex-shrink: 0;
 
         & a {
             font-weight: 500;
@@ -120,7 +126,7 @@ footer {
 
         & img {
             width: 100%;
-            object-fit: cover;
+            /* object-fit: cover; */
             height: 400px;
             border-radius: 10px;
         }
@@ -129,7 +135,7 @@ footer {
     & .activies {
         width: 100%;
         text-align: center;
-        font-size: 25px;
+        font-size: 35px;
         font-weight: 600;
     }
 
@@ -147,11 +153,13 @@ footer {
             padding: 2%;
 
             & .titulo {
-                font-size: 20px;
+                font-size: 25px;
                 font-weight: 600;
+                margin: 0 0 2% 0;
             }
 
             & .corpo {
+                margin: 0 0 10% 0;
                 color: rgb(164, 164, 164);
                 line-height: 1.8;
             }
@@ -162,7 +170,8 @@ footer {
                 background-color: black;
                 color: #fff;
                 height: 50px;
-                font-family: "Sao Francisco Semi Bold", sans-serif;
+                font-family: "Sao Francisco Regular", sans-serif;
+                font-size: 15px;
                 cursor: pointer;
             }
 

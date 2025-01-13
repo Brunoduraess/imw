@@ -9,7 +9,7 @@
 
     <section class="container home">
         <div class="show-img">
-            <img src="{{ asset('assets/images/home.jpg') }}" alt="">
+            <img src="{{ asset('assets/images/home.png') }}" alt="">
         </div>
         <p class="activies">Nossas atividades</p>
         <div class="cards">
