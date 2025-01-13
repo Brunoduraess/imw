@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Sao Francisco Regular';
     src: url('../fonts/saoFranciscoRegular.otf');
@@ -24,6 +23,10 @@ body {
     font-family: 'Sao Francisco Regular', sans-serif;
     font-weight: normal;
     margin: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 
@@ -117,6 +120,7 @@ footer {
 /* #endregion */
 
 /* #region --------------- HOME --------- */
+
 .home {
     margin-top: 2%;
 
@@ -175,6 +179,79 @@ footer {
                 cursor: pointer;
             }
 
+        }
+    }
+
+}
+
+/* #endregion */
+
+/* #region ---------- AGENDA ---------*/
+.agenda {
+    width: 80%;
+    margin: 2% 0 0 10%;
+
+
+    & .dados-pagina {
+        width: 100%;
+        padding: 2% 0 2% 0;
+        display: flex;
+        align-items: center;
+        /* background-color: gray; */
+
+        & .titulo{
+            font-family: "Sao Francisco Semi Bold";
+            font-size: 35px;
+        }
+
+        & .pagina {
+            font-family: "Sao Francisco Semi Bold";
+            margin-left: auto;
+            margin-right: 2%;
+
+            & a {
+                color: black;
+            }
+        }
+    }
+
+    .descricao-pagina {
+        width: 100%;
+        margin: 0;
+        color: rgba(164, 164, 164);
+    }
+
+    .periodo {
+        width: 100%;
+        font-family: "Sao Francisco Semi Bold";
+        font-size: 30px;
+        margin: 5% 0 1%;
+    }
+
+    .eventos {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 4%;
+
+        .card-evento {
+            border-radius: 10px;
+            width: 200px;
+
+            & img {
+                border-radius: 10px;
+            }
+
+            & .titulo-evento {
+                font-family: "Sao Francisco Semi Bold";
+                color: black;
+                margin: 10% 0 0 0;
+            }
+
+            & .data-evento {
+                margin: 3% 0 0 0;
+                color: rgb(164, 164, 164);
+            }
         }
     }
 
