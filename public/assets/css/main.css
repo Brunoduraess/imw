@@ -198,7 +198,7 @@ footer {
         padding: 2% 0 2% 0;
         display: flex;
         align-items: center;
-        /* background-color: gray; */
+        
 
         & .titulo {
             font-family: "Sao Francisco Semi Bold";
@@ -272,7 +272,7 @@ footer {
         padding: 2% 0 2% 0;
         display: flex;
         align-items: center;
-        /* background-color: gray; */
+        
 
         & .titulo {
             font-family: "Sao Francisco Semi Bold";
@@ -363,6 +363,89 @@ footer {
     & .historia {
         line-height: 1.5;
     }
+}
+
+/* #endregion */
+
+/* #region ----------- PROJETOS ---------*/
+
+.projetos {
+    width: 80%;
+    margin: 2% 0 0 10%;
+
+    & .dados-pagina {
+        width: 100%;
+        padding: 2% 0 2% 0;
+        display: flex;
+        align-items: center;
+        
+
+        & .titulo {
+            font-family: "Sao Francisco Semi Bold";
+            font-size: 35px;
+        }
+
+        & .pagina {
+            font-family: "Sao Francisco Semi Bold";
+            margin-left: auto;
+            margin-right: 2%;
+
+            & a {
+                color: black;
+            }
+        }
+    }
+
+    & .descricao-pagina {
+        width: 100%;
+        margin: 0;
+        color: rgba(164, 164, 164);
+    }
+
+    & .projeto {
+        width: 95%;
+        max-width: 100%;
+        padding: 2%;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 15px -2px rgba(164, 164, 164);
+        border-radius: 10px;
+        margin-top: 2%;
+
+        & .logo-projeto {
+            width: 30%;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+        & .detalhe-projeto {
+            width: 68%;
+            margin-left: 2%;
+            height: 200px;
+
+            & .nome-projeto {
+                font-family: "Sao Francisco Semi Bold";
+                font-size: 30px;
+                height: 20%;
+                margin: 0;
+            }
+
+            & .descricao-projeto {
+                height: 58%;
+                margin: 2% 0 0 0;
+            }
+
+            & a {
+                width: 100%;
+                color: black;
+                display: flex;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    }
+
+
 }
 
 /* #endregion */
