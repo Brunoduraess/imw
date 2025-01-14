@@ -7,9 +7,9 @@
         
     </div>
     <div class="links">
-        <a href="{{ route('about') }}">Sobre</a>
-        <a href="{{ route('projects') }}">Nossos projetos</a>
         <a href="{{ route('events') }}">Agenda</a>
+        <a href="{{ route('projects') }}">Nossos projetos</a>
+        <a href="{{ route('about') }}">Nossa história</a>
         <a href="{{ route('contact') }}">Contato</a>
     </div>
 </nav>
