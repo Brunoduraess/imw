@@ -18,6 +18,11 @@ class MainController extends Controller
     public function events(){
         return view('events');
     }
+
+    public function event_detail(){
+        return view('event_detail');
+    }
+
     public function contact(){
         return view('contact');
     }

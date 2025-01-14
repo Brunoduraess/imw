@@ -22,7 +22,7 @@
         </p>
         <p class="periodo">Nessa semana</p>
         <section class="eventos">
-            <a href="">
+            <a href="{{ route('event_detail') }}">
                 <div class="card-evento">
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>

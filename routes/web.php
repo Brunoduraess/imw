@@ -8,5 +8,6 @@ Route::controller(MainController::class)->group(function () {
   Route::get('/about',  'about')->name('about');
   Route::get('/projects',  'projects')->name('projects');
   Route::get('/events',  'events')->name('events');
+  Route::get('/event_detail',  'event_detail')->name('event_detail');
   Route::get('/contact',  'contact')->name('contact');
 });
