@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: 'Sao Francisco Bold';
-    src: url('../fonts/saoFransciscoBold.otf');
+    src: url('../fonts/saoFranciscoBold.otf');
     font-weight: bold;
     font-style: normal;
 }
@@ -198,7 +198,7 @@ footer {
         padding: 2% 0 2% 0;
         display: flex;
         align-items: center;
-        
+
 
         & .titulo {
             font-family: "Sao Francisco Semi Bold";
@@ -272,7 +272,7 @@ footer {
         padding: 2% 0 2% 0;
         display: flex;
         align-items: center;
-        
+
 
         & .titulo {
             font-family: "Sao Francisco Semi Bold";
@@ -378,7 +378,7 @@ footer {
         padding: 2% 0 2% 0;
         display: flex;
         align-items: center;
-        
+
 
         & .titulo {
             font-family: "Sao Francisco Semi Bold";
@@ -443,6 +443,187 @@ footer {
                 text-align: center;
             }
         }
+    }
+
+
+}
+
+/* #endregion */
+
+/* #region --------- DETALHA PROJETO ------------ */
+
+.detalhe_projeto {
+    width: 80%;
+    margin: 2% 0 0 10%;
+
+
+    & .dados-pagina {
+        width: 100%;
+        padding: 2% 0 2% 0;
+        display: flex;
+        align-items: center;
+
+
+        & .titulo {
+            font-family: "Sao Francisco Semi Bold";
+            display: flex;
+            align-items: center;
+
+            & a {
+                color: black;
+                display: flex;
+                align-items: center;
+            }
+
+            & svg {
+                display: flex;
+                align-items: center;
+            }
+
+        }
+
+        & .pagina {
+            font-family: "Sao Francisco Semi Bold";
+            margin-left: auto;
+            margin-right: 2%;
+
+            & a {
+                color: black;
+            }
+        }
+    }
+
+    & .logo-projeto {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+    }
+
+    & .nome-projeto {
+        margin: 4% 0 0 0;
+        font-family: "Sao Francisco Semi Bold";
+        font-size: 35px;
+    }
+
+    & .descricao-projeto {
+        margin: 2% 0 0 0;
+        line-height: 1.5;
+        font-family: "Sao Francisco Semi Bold";
+    }
+
+    & .cursos-titulo {
+        font-family: "Sao Francisco Semi Bold";
+        font-size: 30px;
+        margin: 4% 0 0 0;
+    }
+
+    & .cursos {
+        width: 100%;
+        margin: 1% 0 0 0;
+        display: flex;
+        align-items: center;
+        gap: 3%;
+        overflow-x: auto;
+
+        & .curso {
+            width: 30%;
+
+            & .logo-curso {
+                width: 100%;
+                height: 200px;
+                border-radius: 10px;
+            }
+
+            .interesse-curso {
+                background-color: black;
+                color: #fff;
+                width: 100%;
+                height: 40px;
+                margin: 1% 0 0 0;
+                border-radius: 10px;
+                font-family: "Sao Francisco Semi Bold";
+                cursor: alias;
+            }
+        }
+    }
+
+    & .local_curso,
+    & .valor_curso {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1%;
+
+        & p {
+            color: rgb(164, 164, 164);
+        }
+
+    }
+
+    & .local_curso {
+        margin: 4% 0 0 0;
+    }
+
+    .encontrar {
+        display: flex;
+        align-items: center;
+        font-family: "Sao Francisco Semi Bold";
+        font-size: 20px;
+        margin: 4% 0 0 0;
+
+        & svg {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    & .locais {
+        width: 98%;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1%;
+        padding: 1%;
+        height: 200px;
+        overflow-x: auto;
+
+        & .local {
+            width: 30%;
+            margin-top: 2%;
+            padding: 1%;
+            box-shadow: 0 0 15px -2px rgba(164, 164, 164);
+            border-radius: 10px;
+
+            & .responsavel {
+                font-family: "Sao Francisco Semi Bold";
+                font-size: 25px;
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+
+            & .endereco {
+                margin: 4% 0 10% 0;
+                color: rgb(94, 94, 94);
+                display: flex;
+                align-items: center;
+
+                & svg {
+                    margin-right: 3%;
+                }
+            }
+
+            & .interesse {
+                background-color: black;
+                color: #fff;
+                width: 100%;
+                border-radius: 10px;
+                font-family: "Sao Francisco Semi Bold";
+                height: 40px;
+                margin-top: auto;
+            }
+        }
+
     }
 
 

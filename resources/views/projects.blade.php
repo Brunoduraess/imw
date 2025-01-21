@@ -27,7 +27,7 @@
                 <p class="nome-projeto">Projeto Segunda Chance</p>
                 <p class="descricao-projeto">O Projeto Segunda Chance foi criado com a finalidade de oferecer cursos
                     acessíveis à comunidade residente nas proximidades da igreja, bem como aos membros. </p>
-                <a href="">Ver mais detalhes sobre esse projeto
+                <a href="{{ route('project_detail', ['tipo' => 'educacional']) }}">Ver mais detalhes sobre esse projeto
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -37,12 +37,18 @@
             </div>
         </div>
         <div class="projeto">
-            <img src="{{ asset('assets/images/projeto.png') }}" alt="" class="logo-projeto">
+            <img src="{{ asset('assets/images/projeto_2.png') }}" alt="" class="logo-projeto">
             <div class="detalhe-projeto">
                 <p class="nome-projeto">GCEU</p>
-                <p class="descricao-projeto">O Projeto Segunda Chance foi criado com a finalidade de oferecer cursos
-                    acessíveis à comunidade residente nas proximidades da igreja, bem como aos membros. </p>
-                <a href="">Ver mais detalhes sobre esse projeto
+                <p class="descricao-projeto"> Inspirados pela visão de construir relacionamentos sólidos e fortalecer a fé,
+                    os encontros do GCEU oferecem um espaço acolhedor onde cada pessoa é valorizada e encorajada a viver
+                    plenamente o propósito de Deus.
+
+                    Por meio de momentos de estudo da Palavra, oração, louvor e evangelização prática, o GCEU busca não
+                    apenas edificar seus participantes, mas também alcançar vidas e impactar a comunidade ao nosso redor.
+                    Juntos, cultivamos unidade, apoio mútuo e uma fé que transforma corações e gera frutos para o Reino.
+                </p>
+                <a href="{{ route('project_detail', ['tipo' => 'externo']) }}">Ver mais detalhes sobre esse projeto
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
