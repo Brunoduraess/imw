@@ -50,6 +50,14 @@
                     <img src="{{ asset('assets/images/logo_curso_5.jpg') }}" class="logo-curso">
                     <a href=""><button class="interesse-curso">Quero me inscrever no(a) canto</button></a>
                 </div>
+                <div class="curso">
+                    <img src="{{ asset('assets/images/logo_curso_5.jpg') }}" class="logo-curso">
+                    <a href=""><button class="interesse-curso">Quero me inscrever no(a) canto</button></a>
+                </div>
+                <div class="curso">
+                    <img src="{{ asset('assets/images/logo_curso_5.jpg') }}" class="logo-curso">
+                    <a href=""><button class="interesse-curso">Quero me inscrever no(a) canto</button></a>
+                </div>
             </div>
             <div class="local_curso">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"

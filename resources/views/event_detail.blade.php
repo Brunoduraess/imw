@@ -7,7 +7,7 @@
 @section('content')
     @include('layouts.navbar')
 
-    <section class="container detalhe_evento">
+    <section class="detalhe_evento">
         <div class="dados-pagina">
             <div class="titulo">
                 <a href="{{ route('events') }}">

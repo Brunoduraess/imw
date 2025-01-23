@@ -7,7 +7,7 @@
 @section('content')
     @include('layouts.navbar')
 
-    <section class="container projetos">
+    <section class="projetos">
         <div class="dados-pagina">
             <div class="titulo">
                 Projetos
@@ -46,7 +46,6 @@
 
                     Por meio de momentos de estudo da Palavra, oração, louvor e evangelização prática, o GCEU busca não
                     apenas edificar seus participantes, mas também alcançar vidas e impactar a comunidade ao nosso redor.
-                    Juntos, cultivamos unidade, apoio mútuo e uma fé que transforma corações e gera frutos para o Reino.
                 </p>
                 <a href="{{ route('project_detail', ['tipo' => 'externo']) }}">Ver mais detalhes sobre esse projeto
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

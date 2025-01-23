@@ -7,7 +7,7 @@
 @section('content')
     @include('layouts.navbar')
 
-    <section class="container agenda">
+    <section class="agenda">
         <div class="dados-pagina">
             <div class="titulo">
                 Agenda
@@ -22,36 +22,57 @@
         </p>
         <p class="periodo">Nessa semana</p>
         <section class="eventos">
-            <a href="{{ route('event_detail') }}">
-                <div class="card-evento">
+            <a href="{{ route('event_detail') }}" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento.png') }}" alt="">
                     <p class="titulo-evento">Culto da Rede Move</p>
                     <p class="data-evento">08 de junho, 18:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
                     <p class="titulo-evento">Culto de Mulheres</p>
                     <p class="data-evento">08 de dezembro, 19:30 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
@@ -60,36 +81,57 @@
         </section>
         <p class="periodo">Próximas semanas</p>
         <section class="eventos">
-            <a href="">
-                <div class="card-evento">
+            <a href="{{ route('event_detail') }}" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento.png') }}" alt="">
                     <p class="titulo-evento">Culto da Rede Move</p>
                     <p class="data-evento">08 de junho, 18:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
                     <p class="titulo-evento">Culto de Mulheres</p>
                     <p class="data-evento">08 de dezembro, 19:30 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
@@ -98,36 +140,57 @@
         </section>
         <p class="periodo">Próximos meses</p>
         <section class="eventos">
-            <a href="">
-                <div class="card-evento">
+            <a href="{{ route('event_detail') }}" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento.png') }}" alt="">
                     <p class="titulo-evento">Culto da Rede Move</p>
                     <p class="data-evento">08 de junho, 18:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
                     <p class="titulo-evento">Culto de Mulheres</p>
                     <p class="data-evento">08 de dezembro, 19:30 horas.</p>
                 </div>
             </a>
-            <a href="">
-                <div class="card-evento">
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
+                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
+                    <p class="titulo-evento">Culto de adoração</p>
+                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
+                </div>
+            </a>
+            <a href="" class="card-evento">
+                <div>
                     <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
                     <p class="titulo-evento">Culto de adoração</p>
                     <p class="data-evento">19 de janeiro, 19:00 horas.</p>

@@ -7,7 +7,7 @@
 @section('content')
     @include('layouts.navbar')
 
-    <section class="container sobre">
+    <section class="sobre">
         <p class="titulo">Sobre nós</p>
         <img src="{{ asset('assets/images/sobre.png') }}" alt="" class="topo">
         <p class="historia">A Igreja Metodista Wesleyana é fruto de um avivamento que nasceu no coração de homens e mulheres

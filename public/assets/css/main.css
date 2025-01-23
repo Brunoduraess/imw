@@ -29,6 +29,25 @@ a {
     text-decoration: none;
 }
 
+::-webkit-scrollbar {
+    height: 5px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(251, 251, 251);
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(164, 164, 164, 0.5);
+}
+
 /* #region ---------- NAVBAR -------- */
 
 .navbar {
@@ -58,7 +77,12 @@ a {
         & a {
             text-decoration: none;
             color: black;
+
+            & p {
+                margin: 0;
+            }
         }
+
     }
 
     & .links {
@@ -111,6 +135,7 @@ footer {
         align-items: center;
 
         & p {
+            margin: 0;
             width: 100%;
             text-align: center;
         }
@@ -265,7 +290,9 @@ footer {
         width: 100%;
         display: flex;
         align-items: center;
+        overflow-x: auto;
         gap: 4%;
+        padding-bottom: 2%;
 
         .card-evento {
             border-radius: 10px;
@@ -363,8 +390,10 @@ footer {
         display: flex;
         align-items: center;
         gap: 1%;
+        margin-top: 2%;
 
         & p {
+            margin: 0;
             color: rgb(164, 164, 164);
         }
 
@@ -378,7 +407,7 @@ footer {
 
 .sobre {
     width: 80%;
-    margin: 2% 0 0 10%;
+    margin: 4% 0 0 10%;
 
     & .titulo {
         width: 100%;
@@ -393,6 +422,7 @@ footer {
     }
 
     & .historia {
+        margin-top: 4%;
         line-height: 1.5;
     }
 }
@@ -435,8 +465,7 @@ footer {
     }
 
     & .projeto {
-        width: 95%;
-        max-width: 100%;
+        width: 100%;
         padding: 2%;
         display: flex;
         align-items: center;
@@ -540,7 +569,6 @@ footer {
     & .descricao-projeto {
         margin: 2% 0 0 0;
         line-height: 1.5;
-        font-family: "Sao Francisco Semi Bold";
     }
 
     & .cursos-titulo {
@@ -551,14 +579,17 @@ footer {
 
     & .cursos {
         width: 100%;
+        height: 300px;
         margin: 1% 0 0 0;
         display: flex;
         align-items: center;
-        gap: 3%;
         overflow-x: auto;
+        gap: 3%;
 
         & .curso {
-            width: 30%;
+            width: 300px;
+            display: block;
+            flex-shrink: 0;
 
             & .logo-curso {
                 width: 100%;
@@ -585,8 +616,10 @@ footer {
         display: flex;
         align-items: center;
         gap: 1%;
+        margin-top: 2%;
 
         & p {
+            margin: 0;
             color: rgb(164, 164, 164);
         }
 
@@ -662,3 +695,43 @@ footer {
 }
 
 /* #endregion */
+
+/* #region ------------- CONTATO ---------- */
+
+.contact {
+    width: 80%;
+    margin: 4% 0 0 10%;
+
+    & .titulo {
+        font-family: "Sao Francisco Semi Bold";
+        font-size: 35px;
+
+    }
+
+    & .dados {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 2%;
+
+        & .mensagem {
+            width: 40%;
+            height: 450px;
+            border-radius: 10px;
+        }
+
+        & form {
+            width: 58%;
+
+            & .form-group{
+                padding-bottom: 1%;
+            }
+
+            & button{
+                width: 100%;
+            }
+        }
+    }
+}
+
+/* #enderegion */
