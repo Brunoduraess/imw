@@ -4,13 +4,12 @@
     </div>
     <div class="nome">
         <a href="{{ route('home') }}"><p>Igreja Metodista Wesleyana <br> em Vila Elmira</p></a>
-        
     </div>
     <div class="links">
         <a href="{{ route('events') }}">Agenda</a>
         <a href="{{ route('projects') }}">Nossos projetos</a>
         <a href="{{ route('about') }}">Nossa história</a>
         <a href="https://www.youtube.com/@imwvetv">Assista online</a>
-        <a href="{{ route('contact') }}">Contato</a>
+        <a href="{{ route('contact') }}">Fale Conosco</a>
     </div>
 </nav>
