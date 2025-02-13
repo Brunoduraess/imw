@@ -8,10 +8,6 @@
     @include('layouts.navbar')
 
     <section class="home">
-        {{-- <div class="show-img">
-            <img src="{{ asset('assets/images/home.png') }}" alt="">
-        </div> --}}
-
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -23,13 +19,16 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="{{ asset(path: 'assets/images/home_1.svg') }}" class="carousel-img" alt="...">
+                    <img src="{{ asset(path: 'assets/images/home_1.svg') }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ asset(path: 'assets/images/home_1_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                    <img src="{{ asset(path: 'assets/images/home_2.svg') }}" class="carousel-img" alt="...">
+                    <img src="{{ asset(path: 'assets/images/home_2.svg') }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ asset(path: 'assets/images/home_2_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                    <img src="{{ asset('assets/images/home_3.svg') }}" class="carousel-img" alt="...">
+                    <img src="{{ asset('assets/images/home_3.svg') }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ asset('assets/images/home_3_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
@@ -40,9 +39,7 @@
             </button>
         </div>
 
-        {{-- <div id="carouselExampleIndicators" class="carousel slide"> --}}
-
-        <p class="activies">Nossas atividades</p>
+         <p class="activies">Nossas atividades</p>
         <div class="cards">
             <div class="card cults">
                 <p class="titulo">Cultos</p>
