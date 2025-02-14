@@ -762,7 +762,29 @@ footer {
 
 /* #enderegion */
 
-@media screen and (min-device-width: 400px) and (max-device-width: 900px) {
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    .home {
+        width: 80%;
+        margin: 5% 0 0 10%;
+
+        .carousel {
+
+            & .carousel-inner {
+
+                & .img-pc {
+                    display: none;
+                }
+
+                & .img-mobile {
+                    object-fit: cover;
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 900px) {
 
     /* #region ------------ NAVBAR -----------*/
 
