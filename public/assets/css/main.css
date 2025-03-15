@@ -723,12 +723,12 @@ footer {
 
 .contact {
     width: 80%;
+    height: 600px;
     margin: 4% 0 0 10%;
 
     & .titulo {
         font-family: "Sao Francisco Semi Bold";
         font-size: 35px;
-
     }
 
     & .dados {
@@ -1180,6 +1180,7 @@ footer {
 
     .contact {
         width: 80%;
+        height: auto;
         margin: 4% 0 0 10%;
 
         & .dados {
