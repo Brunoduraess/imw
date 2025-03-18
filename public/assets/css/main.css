@@ -759,6 +759,83 @@ footer {
 
 /* #enderegion */
 
+/* #region -------------- LOGIN ------------ */
+
+.login {
+    width: 40%;
+    margin: 2% 0 0 30%;
+    padding: 1% 2% 2% 2%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px -2px var(--cinza);
+
+    & .descricao {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2%;
+
+        & img {
+            height: 60px;
+        }
+
+        & .titulo {
+            font-family: "Sao Francisco Semi Bold";
+            font-size: 25px;
+            margin: 0;
+        }
+    }
+
+    & form {
+        width: 100%;
+
+        & .form-group {
+            padding-bottom: 2%;
+        }
+
+        & button {
+            width: 100%;
+            border-radius: 10px;
+            height: 40px;
+            background-color: var(--fosco);
+            border-color: var(--fosco);
+            color: #fff;
+            font-family: "Sao Francisco Semi Bold";
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        & .senha {
+            position: relative;
+            width: 100%;
+        }
+
+        & .senha .olho,
+        & .senha .pirata {
+            position: absolute;
+            right: 10px;
+            top: 75%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        & .senha #pirata {
+            display: none;
+        }
+    }
+
+    & .troca_senha {
+        width: 100%;
+        margin: 2% 0 0 0;
+        display: inline-block;
+        text-align: center;
+        color: var(--fosco);
+        text-decoration: underline;
+    }
+}
+
+/* #endregion */
+
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;
@@ -1207,4 +1284,35 @@ footer {
     }
 
     /* #enderegion */
+
+    /* #region -------------- LOGIN ------------ */
+
+    .login {
+        width: 90%;
+        margin: 2% 0 0 5%;
+        padding: 5%;
+
+        & .descricao {
+            margin-bottom: 5%;
+        }
+
+        & form {
+            & input {
+                height: 50px;
+            }
+
+            & .senha .olho,
+            & .senha .pirata {
+                top: 70%;
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        & .troca_senha {
+            margin: 5% 0 0 0;
+        }
+    }
+
+    /* #endregion */
 }
