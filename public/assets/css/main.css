@@ -836,6 +836,62 @@ footer {
 
 /* #endregion */
 
+/* #region -------------- MENU ------------ */
+
+.menu {
+    width: 80%;
+    margin: 2% 0 0 10%;
+
+    & .opcoes {
+        display: inline-flex;
+        gap: 2%;
+        width: 100%;
+        height: 600px;
+        margin: 2% 0 0 0;
+
+        & .opcao {
+            width: 30%;
+            height: 500px;
+            padding: 2%;
+            box-shadow: 0 0 15px -2px var(--cinza);
+            border-radius: 10px;
+
+            & img {
+                width: 100%;
+                border-radius: 10px;
+                height: 50%;
+                object-fit: cover;
+            }
+
+            & .nome {
+                font-family: "Sao Francisco Semi Bold";
+                font-size: 25px;
+                height: 10%;
+                margin: 5% 0 0 0;
+            }
+
+            & .descricao {
+                color: var(--cinza);
+                line-height: 1.5;
+                height: 25%;
+            }
+
+            & button {
+                margin-top: auto;
+                width: 100%;
+            }
+        }
+
+        & .opcao:hover {
+            background-color: var(--fosco);
+            color: #fff;
+            transition: 1s;
+            transform: scale(1.1);
+        }
+    }
+}
+
+/* #endregion */
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;
@@ -901,6 +957,7 @@ footer {
 
             & a {
                 width: 100%;
+                max-width: 100%;
                 height: 50px;
                 margin: 2% 0 0 0;
                 display: flex;
@@ -913,6 +970,10 @@ footer {
                 & svg {
                     display: block;
                 }
+            }
+
+            & button {
+                width: 100%;
             }
         }
     }
@@ -1311,6 +1372,25 @@ footer {
 
         & .troca_senha {
             margin: 5% 0 0 0;
+        }
+    }
+
+    /* #endregion */
+
+    /* #region -------------- MENU ------------ */
+
+    .menu {
+        & .opcoes {
+            display: block;
+
+            & .opcao {
+                width: 100%;
+                background-color: var(--fosco);
+                color: #fff;
+                padding: 5%;
+                margin-bottom: 5%;
+            }
+
         }
     }
 
