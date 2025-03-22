@@ -33,12 +33,14 @@ class AuthController extends Controller
         $user = User::where('cpf', $cpf)->where('deleted_at', NULL)->first();
 
         if (!$user) {
-            return redirect()->back()->withInput()->with('loginError', 'Username ou password incorretos');
+            return redirect()->back()->withInput()->with('loginError', 'CPF ou senha incorretos');
         }
 
         if (!password_verify($senha, $user->senha)) {
-            return redirect()->back()->withInput()->with('loginError', 'Username ou password incorretos');
+            return redirect()->back()->withInput()->with('loginError', 'CPF ou senha incorretos');
         }
+
+        date_default_timezone_set('America/Bahia');
 
         $user->ultimo_acesso = date('Y-m-d H:i:s');
         $user->save();
@@ -46,11 +48,12 @@ class AuthController extends Controller
         session([
             'user' => [
                 'id' => $user->id,
-                'nome' => $user->nome
+                'nome' => $user->nome,
+                'acesso' => $user->acesso
             ]
         ]);
 
-        return redirect()->to('/');
+        return redirect()->to('/menu');
     }
 
     public function forgot_password()
@@ -58,4 +61,10 @@ class AuthController extends Controller
         return view('forgot_password');
     }
 
+
+    public function logout()
+    {
+        session()->flush();
+        return redirect()->to('/login');
+    }
 }
