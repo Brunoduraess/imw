@@ -25,5 +25,6 @@ Route::middleware(Logado::class)->group(function () {
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
   Route::controller(MainController::class)->group(function () {
     Route::get('/menu', 'menu')->name('menu');
+    Route::get('/users', 'users')->name('users');
   });
 });

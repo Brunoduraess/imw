@@ -24,7 +24,7 @@
                 <img src="{{ asset('assets/images/midia.png') }}" alt="logo">
                 <p class="nome">Usuários</p>
                 <p class="descricao">Utilize essa opção para gerenciar os usuários cadastrados ou cadastrar novos usuários</p>
-                <a href=''><button class="btn btn-success">Gerenciar usuários</button></a>
+                <a href='{{ route('users') }}'><button class="btn btn-success">Gerenciar usuários</button></a>
             </div>
         </div>
     </section>

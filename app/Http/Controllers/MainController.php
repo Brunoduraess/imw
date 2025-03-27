@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -54,5 +55,12 @@ class MainController extends Controller
     public function menu()
     {
         return view('admin/menu');
+    }
+
+    public function users()
+    {
+        $users = DB::table('users')->orderBy('nome')->get();
+
+        return view('admin/users', ['users' => $users]);
     }
 }
