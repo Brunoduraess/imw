@@ -15,7 +15,8 @@ class UserTableSeeder extends Seeder
             'cpf' => '17511527744',
             'email' => 'brunoduraes03@gmail.com',
             'senha' => bcrypt('teste'),
-            'acesso' => 'admin',
+            'acesso' => 'Administrador',
+            'status' => 'Ativo',
             'ultimo_acesso' => NULL,
             'criado_em' => date('Y-m-d H:i:s')]
         );

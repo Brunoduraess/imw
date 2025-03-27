@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email', 100)->unique();
             $table->string('senha', 255);
             $table->string('acesso', 50);
+            $table->string('status', 20);
             $table->dateTime('ultimo_acesso')->nullable();
             $table->dateTime('criado_em');
             $table->timestamps();
