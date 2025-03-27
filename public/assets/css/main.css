@@ -892,6 +892,56 @@ footer {
 }
 
 /* #endregion */
+
+/* #region -------------- REGISTROS ------------ */
+
+.registros {
+    width: 90%;
+    margin: 3% 0 0 5%;
+
+    & .acoes {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 0 0 2% 0;
+
+        & .titulo {
+            margin: 0;
+            font-family: "Sao Francisco Bold";
+            font-size: 35px;
+            color: var(--fosco);
+        }
+
+        & .btn {
+            margin-left: auto;
+        }
+    }
+
+    & .search {
+        width: 30%;
+        margin: 0 0 2% 70%;
+    }
+
+    & th,
+    & td {
+        color: var(--fosco);
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    & td {
+        & button {
+            display: inline-block;
+            background-color: var(--fosco);
+            border-color: var(--fosco);
+            width: 50%;
+        }
+    }
+}
+
+/* #endregion */
+
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;
@@ -1391,6 +1441,44 @@ footer {
                 margin-bottom: 5%;
             }
 
+        }
+    }
+
+    /* #endregion */
+
+    /* #region -------------- REGISTROS ------------ */
+
+    .registros {
+        width: 90%;
+        margin: 5% 0 0 5%;
+
+        & .acoes {
+            width: 100%;
+            display: block;
+            margin: 0 0 5% 0;
+
+            & .titulo {
+                font-size: 30px;
+                margin: 0 0 5% 0;
+            }
+
+            & .btn {
+                width: 100%;
+                height: 40px;
+                margin-left: 0;
+            }
+        }
+
+        & .search {
+            width: 100%;
+            height: 40px;
+            margin: 0 0 5% 0;
+        }
+
+        & .table {
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: auto;
         }
     }
 
