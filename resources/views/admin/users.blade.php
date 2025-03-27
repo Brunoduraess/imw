@@ -49,4 +49,19 @@
             </table>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const tableRows = document.querySelectorAll('.table tbody tr');
+
+            searchInput.addEventListener('keyup', function() {
+                const searchValue = searchInput.value.toLowerCase();
+
+                tableRows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    row.style.display = rowText.includes(searchValue) ? '' : 'none';
+                });
+            });
+        });
+    </script>
 @endsection
