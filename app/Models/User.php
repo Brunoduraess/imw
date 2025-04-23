@@ -6,8 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    const CREATED_AT = 'criado_em';
 }
