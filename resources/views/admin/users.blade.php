@@ -36,7 +36,7 @@
                             <td>{{ $user->ultimo_acesso }}</td>
                             <td>{{ $user->criado_em }}</td>
                             <td style="white-space: nowrap;">
-                                <a href=''>
+                                <a href='{{ route('editUser', ['id' => $user->id]) }}'>
                                     <button type="button" class="btn btn-success">Editar</button>
                                 </a>
                                 @if ($user->status != 'Inativo')

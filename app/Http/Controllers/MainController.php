@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
@@ -61,7 +62,7 @@ class MainController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = User::orderBy('nome', 'asc')->get();
 
         foreach ($users as $user) {
             $user->cpf = $this->formataCPF($user->cpf);
@@ -112,7 +113,7 @@ class MainController extends Controller
         $senha = bcrypt('1234');
 
         $user = new User();
-        $user->id = uuid_create();
+        $user->id = (string) Str::uuid();
         $user->nome = $nome;
         $user->email = $email;
         $user->cpf = $cpf;
@@ -121,9 +122,45 @@ class MainController extends Controller
         $user->criado_em = $data;
         $user->senha = $senha;
         $user->save();
-        
+
         return redirect()->route('users');
     }
 
+    public function editUser($id)
+    {
+        $user = User::find($id);
+
+        return view('admin/editUser', ['user' => $user]);
+    }
+
+    public function saveUserEdit(Request $request)
+    {
+        $request->validate(
+            [
+                'nome' => 'required',
+                'email' => 'required',
+                'cpf' => 'required|min:14',
+                'acesso' => 'required',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'email.required' => 'O campo email é obrigatório.',
+                'cpf.required' => 'O campo CPF é obrigatório.',
+                'cpf.min' => 'O CPF deve ter 11 números.',
+                'acesso.required' => 'O campo nível de acesso é obrigatório.',
+            ]
+        );
+
+        User::where('id', '=', $request->input('id'))
+            ->update([
+                'nome' => $request->input('nome'),
+                'email' => $request->input('email'),
+                'cpf' => str_replace(['-', '.'], '', $request->input('cpf')),
+                'acesso' => $request->input('acesso')
+            ]);
+
+        return redirect()->route('users');
+
+    }
 
 }
