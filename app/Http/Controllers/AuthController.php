@@ -28,7 +28,7 @@ class AuthController extends Controller
         $cpf = str_replace($arrayEspeciais, '', $request->input('cpf'));
         $senha = $request->input('senha');
 
-        $user = User::where('cpf', $cpf)->where('deleted_at', NULL)->first();
+        $user = User::where('cpf', $cpf)->where('desativado_em', NULL)->first();
 
         if (!$user) {
             return redirect()->back()->withInput()->with('loginError', 'CPF ou senha incorretos');
