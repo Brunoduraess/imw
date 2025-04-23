@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,8 +60,26 @@ class MainController extends Controller
 
     public function users()
     {
-        $users = DB::table('users')->orderBy('nome')->get();
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $user->cpf = $this->formataCPF($user->cpf);
+            $user->ultimo_acesso = date('d/m/Y H:i:s', strtotime($user->ultimo_acesso));
+            $user->criado_em = date('d/m/Y H:i:s', strtotime($user->criado_em));
+        }
 
         return view('admin/users', ['users' => $users]);
     }
+
+    private function formataCPF($cpf)
+    {
+        $cpfFormatado = preg_replace(
+            '/(\d{3})(\d{3})(\d{3})(\d{2})/',
+            '$1.$2.$3-$4',
+            $cpf
+        );
+        return $cpfFormatado;
+    }
+
+
 }
