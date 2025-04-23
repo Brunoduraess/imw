@@ -16,13 +16,11 @@ class AuthController extends Controller
         $request->validate(
             [
                 'cpf' => 'required',
-                'senha' => 'required|min:5|max:16'
+                'senha' => 'required'
             ],
             [
                 'cpf.required' => 'O cpf é obrigatório',
-                'senha.required' => 'A senha é obrigatória',
-                'senha.min' => 'A senha deve ter pelo menos :min caracteres',
-                'senha.max' => 'A senha deve ter no máximo :max caracteres',
+                'senha.required' => 'A senha é obrigatória'
             ]
         );
 
