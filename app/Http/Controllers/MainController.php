@@ -163,4 +163,26 @@ class MainController extends Controller
 
     }
 
+    public function disableUser($id)
+    {
+        $user = User::find($id);
+
+        $user->status = "Inativo";
+        $user->deleted_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        return redirect()->route('users');
+    }
+
+    public function enableUser($id)
+    {
+        $user = User::find($id);
+
+        $user->status = "Ativo";
+        $user->deleted_at = null;
+        $user->save();
+
+        return redirect()->route('users');
+    }
+
 }

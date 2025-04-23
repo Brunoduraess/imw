@@ -21,6 +21,7 @@
                         <th>CPF</th>
                         <th>Email</th>
                         <th>Perfil</th>
+                        <th>Status</th>
                         <th>Último acesso</th>
                         <th>Criado em</th>
                         <th></th>
@@ -33,6 +34,7 @@
                             <td>{{ $user->cpf }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->acesso }}</td>
+                            <td>{{ $user->status }}</td>
                             <td>{{ $user->ultimo_acesso }}</td>
                             <td>{{ $user->criado_em }}</td>
                             <td style="white-space: nowrap;">
@@ -40,8 +42,12 @@
                                     <button type="button" class="btn btn-success">Editar</button>
                                 </a>
                                 @if ($user->status != 'Inativo')
-                                    <a href=''>
+                                    <a href='{{ route('disableUser', ['id' => $user->id]) }}'>
                                         <button type="button" class="btn btn-success">Desativar</button>
+                                    </a>
+                                @else
+                                    <a href='{{ route('enableUser', ['id' => $user->id]) }}'>
+                                        <button type="button" class="btn btn-success">Ativar</button>
                                     </a>
                                 @endif
 

@@ -30,5 +30,7 @@ Route::middleware(Logado::class)->group(function () {
     Route::post('/createUser', 'createUser')->name('createUser');
     Route::get('/editUser/{id}', 'editUser')->name('editUser');
     Route::post('/saveUserEdit', 'saveUserEdit')->name('saveUserEdit');
+    Route::get('/disableUser/{id}', 'disableUser')->name('disableUser');
+    Route::get('/enableUser/{id}', 'enableUser')->name('enableUser');
   });
 });
