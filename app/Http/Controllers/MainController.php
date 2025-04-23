@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -64,8 +65,6 @@ class MainController extends Controller
 
         foreach ($users as $user) {
             $user->cpf = $this->formataCPF($user->cpf);
-            $user->ultimo_acesso = date('d/m/Y H:i:s', strtotime($user->ultimo_acesso));
-            $user->criado_em = date('d/m/Y H:i:s', strtotime($user->criado_em));
         }
 
         return view('admin/users', ['users' => $users]);
@@ -79,6 +78,51 @@ class MainController extends Controller
             $cpf
         );
         return $cpfFormatado;
+    }
+
+    public function newUser()
+    {
+        return view('admin/newUser');
+    }
+
+    public function createUser(Request $request)
+    {
+        $request->validate(
+            [
+                'nome' => 'required',
+                'email' => 'required',
+                'cpf' => 'required|min:14',
+                'acesso' => 'required',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'email.required' => 'O campo email é obrigatório.',
+                'cpf.required' => 'O campo CPF é obrigatório.',
+                'cpf.min' => 'O CPF deve ter 11 números.',
+                'acesso.required' => 'O campo nível de acesso é obrigatório.',
+            ]
+        );
+
+        $nome = $request->input('nome');
+        $email = $request->input('email');
+        $cpf = str_replace(['.', '-'], '', $request->input('cpf'));
+        $acesso = $request->input('acesso');
+        $status = 'Ativo';
+        $data = Carbon::now()->format('Y-m-d H:i:s');
+        $senha = bcrypt('1234');
+
+        $user = new User();
+        $user->id = uuid_create();
+        $user->nome = $nome;
+        $user->email = $email;
+        $user->cpf = $cpf;
+        $user->acesso = $acesso;
+        $user->status = $status;
+        $user->criado_em = $data;
+        $user->senha = $senha;
+        $user->save();
+        
+        return redirect()->route('users');
     }
 
 

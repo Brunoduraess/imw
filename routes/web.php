@@ -26,5 +26,7 @@ Route::middleware(Logado::class)->group(function () {
   Route::controller(MainController::class)->group(function () {
     Route::get('/menu', 'menu')->name('menu');
     Route::get('/users', 'users')->name('users');
+    Route::get('/newUser', 'newUser')->name('newUser');
+    Route::post('/createUser', 'createUser')->name('createUser');
   });
 });

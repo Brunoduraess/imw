@@ -10,7 +10,7 @@
     <section class="registros">
         <div class="acoes">
             <p class="titulo">Usuários</p>
-            <button class="btn btn-success">Cadastrar novo usuário</button>
+            <a href="{{ route('newUser') }}" class="btn btn-success">Cadastrar novo usuário</a>
         </div>
         <input type="text" name="search" id="search" class="form-control search" placeholder="Pesquisar...">
         <div class="table-responsive">
@@ -37,11 +37,14 @@
                             <td>{{ $user->criado_em }}</td>
                             <td style="white-space: nowrap;">
                                 <a href=''>
-                                    <button type="button" class="btn btn-success">Ver dados</button>
-                                </a>
-                                <a href=''>
                                     <button type="button" class="btn btn-success">Editar</button>
                                 </a>
+                                @if ($user->status != 'Inativo')
+                                    <a href=''>
+                                        <button type="button" class="btn btn-success">Desativar</button>
+                                    </a>
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach
