@@ -942,6 +942,28 @@ footer {
 
 /* #endregion */
 
+/* $region -------------- FORMULÁRIO ------------ */
+.formulario {
+    width: 80%;
+    margin: 2% 0 0 10%;
+
+    & .titulo {
+        font-family: "Sao Francisco Bold";
+        font-size: 35px;
+        color: var(--fosco);
+    }
+
+    & .form-group {
+        margin: 1% 0 0 0;
+    }
+
+    & .btn {
+        width: 100%;
+        margin: 1% 0 0 0;
+    }
+}
+
+/* #endregion */
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;
