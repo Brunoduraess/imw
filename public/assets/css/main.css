@@ -922,6 +922,11 @@ footer {
         margin: 0 0 2% 70%;
     }
 
+    & .table-responsive {
+        height: 400px;
+        overflow-y: auto;
+    }
+
     & th,
     & td {
         color: var(--fosco);
