@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use App\Http\Middleware\Logado;
@@ -23,7 +24,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(Logado::class)->group(function () {
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-  Route::controller(MainController::class)->group(function () {
+  Route::controller(AdminController::class)->group(function () {
     Route::get('/menu', 'menu')->name('menu');
     Route::get('/users', 'users')->name('users');
     Route::get('/newUser', 'newUser')->name('newUser');
