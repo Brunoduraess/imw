@@ -33,5 +33,12 @@ Route::middleware(Logado::class)->group(function () {
     Route::post('/saveUserEdit', 'saveUserEdit')->name('saveUserEdit');
     Route::get('/disableUser/{id}', 'disableUser')->name('disableUser');
     Route::get('/enableUser/{id}', 'enableUser')->name('enableUser');
+    Route::get('/eventsAdmin', 'eventsAdmin')->name('eventsAdmin');
+    Route::get('/createEvent', 'createEvent')->name('createEvent');
+    Route::post('/createEventSubmit', 'createEventSubmit')->name('createEventSubmit');
+    Route::get('/editEvent/{id}', 'editEvent')->name('editEvent');
+    Route::post('/editEventSubmit', 'editEventSubmit')->name('editEventSubmit');
+    Route::get('/disableEvent/{id}', 'disableEvent')->name('disableEvent');
+    Route::get('/enableEvent/{id}', 'enableEvent')->name('enableEvent');
   });
 });
