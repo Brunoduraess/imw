@@ -7,6 +7,9 @@
     @yield('title')
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.js') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.min.js') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/icon.ico') }}" type="image/x-icon">
 </head>
@@ -18,7 +21,7 @@
     <script src="{{ asset('assets/bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/navbar.js') }}" ></script>
+    <script src="{{ asset('assets/js/navbar.js') }}"></script>
 </body>
 
 </html>

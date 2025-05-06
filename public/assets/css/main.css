@@ -42,6 +42,7 @@ a {
 
 ::-webkit-scrollbar-track-piece {
     background-color: #fff;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -899,11 +900,12 @@ footer {
     width: 90%;
     margin: 3% 0 0 5%;
 
-    & .acoes {
+    & .dados-pagina {
         width: 100%;
+        padding: 0;
         display: flex;
         align-items: center;
-        margin: 0 0 2% 0;
+
 
         & .titulo {
             margin: 0;
@@ -912,37 +914,145 @@ footer {
             color: var(--fosco);
         }
 
-        & .btn {
+        & .pagina {
+            font-family: "Sao Francisco Semi Bold";
             margin-left: auto;
+            margin-right: 2%;
+
+            & a {
+                color: var(--fosco);
+            }
         }
     }
 
-    & .search {
-        width: 30%;
-        margin: 0 0 2% 70%;
+    & .acoes {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 2% 0 2% 0;
+        gap: 1%;
+        border-radius: 5px;
+        box-shadow: 0 0 15px -2px var(--cinza);
+        padding: 1%;
+
+        & .titulo {
+            margin: 0;
+            font-family: "Sao Francisco Bold";
+            color: var(--fosco);
+            width: 10%;
+            text-align: center;
+        }
+
+        & .search {
+            width: 90%;
+            margin: 0;
+        }
+    }
+
+    & .cards {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 2%;
+        margin: 2% 0 0 0;
+
+        & .card {
+            width: 32%;
+            height: 210px;
+            box-shadow: 0 0 15px -2px var(--cinza);
+            padding: 1%;
+        }
+
+        & .titulo {
+            font-family: 'Sao Francisco Bold';
+        }
+
+        & .lista {
+            overflow-y: auto;
+        }
+
+        & .resultado {
+            display: flex;
+            align-items: center;
+
+            & .status {
+                margin: 0;
+                width: 70%;
+                color: var(--fosco);
+            }
+
+            & .total {
+                margin: 0;
+                width: 30%;
+                color: #757575;
+            }
+        }
+
+        & hr {
+            color: #757575;
+        }
+
+        & .btn {
+            background-color: #fff;
+            border-color: #fff;
+            color: var(--fosco);
+            font-family: 'Sao Francisco Semi Bold';
+        }
     }
 
     & .table-responsive {
         height: 400px;
         overflow-y: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 15px -2px var(--cinza);
+        padding: 0 2% 2% 2%;
+        margin: 2% 0 10% 0;
+    }
+
+    & th {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 1;
+        height: 50px;
+        font-family: 'Sao Francisco Bold';
+        color: var(--fosco);
     }
 
     & th,
     & td {
-        color: var(--fosco);
         text-align: center;
         display: table-cell;
         vertical-align: middle;
     }
 
     & td {
+
+        color: #757575;
+
         & button {
             display: inline-block;
-            background-color: var(--fosco);
-            border-color: var(--fosco);
+            background-color: var(--cinza);
+            border-color: var(--cinza);
             width: 50%;
         }
+
+        & .ativo {
+            background-color: #2caf1e;
+            color: #fff;
+            margin: 0;
+            border-radius: 5px;
+        }
+
+        & .inativo {
+            background-color: #ea2d4a;
+            color: #fff;
+            margin: 0;
+            border-radius: 5px;
+            padding: 1px;
+        }
     }
+
 }
 
 /* #endregion */
@@ -952,7 +1062,25 @@ footer {
     width: 80%;
     margin: 2% 0 0 10%;
 
+    & .dados-pagina {
+        width: 100%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        & .pagina {
+            font-family: "Sao Francisco Semi Bold";
+            margin-left: auto;
+            margin-right: 2%;
+
+            & a {
+                color: var(--fosco);
+            }
+        }
+    }
+
     & .titulo {
+        margin: 0;
         font-family: "Sao Francisco Bold";
         font-size: 35px;
         color: var(--fosco);
@@ -966,9 +1094,39 @@ footer {
         width: 100%;
         margin: 1% 0 0 0;
     }
+
+    & .titulo_imagem_atual {
+        font-family: 'Sao Francisco Bold';
+        width: 100%;
+        text-align: center;
+        margin: 0 0 2% 0;
+    }
+
+    & .imagem_atual {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    & .img_agenda {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    & .img_detalhe {
+        width: 450;
+        height: 150px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /* #endregion */
+
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;

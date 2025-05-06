@@ -6,7 +6,15 @@
 @section('content')
     @include('admin.navbar')
     <section class="formulario">
-        <p class="titulo">Cadastrar novo usuario</p>
+        <div class="dados-pagina">
+            <div class="titulo">
+                Cadastrar novo usuario
+            </div>
+            <div class="pagina">
+                <a href="{{ route('menu') }}">Menu</a> / <a href="{{ route('users') }}">Usuários</a> / Cadastrar novo
+                usuário
+            </div>
+        </div>
         <form action="{{ route('createUser') }}" method="post" class="row">
             @csrf
             <div class="form-group col-xl-12">
