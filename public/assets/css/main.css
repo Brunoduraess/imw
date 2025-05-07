@@ -55,6 +55,7 @@ a {
 :root {
     --fosco: rgb(60, 60, 60);
     --cinza: rgb(164, 164, 164);
+    --cinza_escuro: #757575;
 }
 
 /* #endregion */
@@ -134,17 +135,18 @@ a {
 /* #region --------------- FOOTER ---------- */
 
 footer {
-    margin-top: 5%;
-    border-top: 0.5px solid rgb(247, 246, 246);
-    background: linear-gradient(180deg, rgb(69, 86, 161) 0%, #173a99 100%);
-    color: #ffffffb7;
+    margin-top: 8%;
+    box-shadow: 0 0 15px -2px var(--cinza);
+    color: var(--cinza_escuro);
 
     & .dados {
+        margin-top: 2%;
         padding: 1% 2%;
         width: 100%;
         display: flex;
 
         & .conteudo {
+            margin: 1% 0 0 0;
             width: 25%;
             display: block;
             height: auto;
@@ -152,7 +154,7 @@ footer {
 
         & .titulo {
             font-family: 'Sao Francisco Bold';
-            color: var(--cinza);
+            color: var(--fosco);
         }
 
         & a {
@@ -160,7 +162,7 @@ footer {
             align-items: center;
             gap: 2%;
             margin: 0 0 -4% 0;
-            color: #ffffffb7;
+            color: var(--cinza_escuro);
         }
     }
 }
@@ -985,12 +987,12 @@ footer {
             & .total {
                 margin: 0;
                 width: 30%;
-                color: #757575;
+                color: var(--cinza_escuro);
             }
         }
 
         & hr {
-            color: #757575;
+            color: var(--cinza_escuro);
         }
 
         & .btn {
@@ -1029,7 +1031,7 @@ footer {
 
     & td {
 
-        color: #757575;
+        color: var(--cinza_escuro);
 
         & button {
             display: inline-block;
