@@ -26,42 +26,22 @@
 
     <div class="links">
         <a href="{{ route('events') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path
-                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>Agenda
+            <p class="emoji">▶️</p> Agenda
         </a>
         <a href="{{ route('projects') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path
-                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>
-            Nossos projetos
+            <p class="emoji">▶️</p> Nossos projetos
         </a>
         <a href="{{ route('about') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path
-                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>Nossa história
+            <p class="emoji">▶️</p> Nossa história
         </a>
         <a href="https://www.youtube.com/@imwvetv">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path
-                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>
-            Assista online
+            <p class="emoji">▶️</p> Assista online
         </a>
         <a href="{{ route('contact') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path
-                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>
-            Fale Conosco
+            <p class="emoji">▶️</p> Fale Conosco
+        </a>
+        <a href="{{ route('login') }}">
+            <button class="btn btn-primary">Login 👨🏻‍💻</button>
         </a>
     </div>
 </nav>
