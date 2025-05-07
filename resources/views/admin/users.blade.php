@@ -63,7 +63,7 @@
         </div>
         <div class="acoes">
             <p class="titulo">Pesquisar</p>
-            <input type="text" name="search" id="search" class="form-control search" placeholder="Pesquisar...">
+            <input type="text" name="search" id="search" class="form-control search" placeholder="Procure por algum dado do usuário...">
         </div>
         <div class="table-responsive">
             <table class="table">

@@ -946,6 +946,7 @@ footer {
         & .search {
             width: 90%;
             margin: 0;
+            background-color: #f0f0f0;
         }
     }
 
@@ -1058,6 +1059,7 @@ footer {
 /* #endregion */
 
 /* $region -------------- FORMULÁRIO ------------ */
+
 .formulario {
     width: 80%;
     margin: 2% 0 0 10%;
