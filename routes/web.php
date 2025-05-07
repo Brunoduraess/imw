@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Logado;
 use Illuminate\Support\Facades\Route;
 
@@ -26,13 +27,6 @@ Route::middleware(Logado::class)->group(function () {
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
   Route::controller(AdminController::class)->group(function () {
     Route::get('/menu', 'menu')->name('menu');
-    Route::get('/users', 'users')->name('users');
-    Route::get('/newUser', 'newUser')->name('newUser');
-    Route::post('/createUser', 'createUser')->name('createUser');
-    Route::get('/editUser/{id}', 'editUser')->name('editUser');
-    Route::post('/saveUserEdit', 'saveUserEdit')->name('saveUserEdit');
-    Route::get('/disableUser/{id}', 'disableUser')->name('disableUser');
-    Route::get('/enableUser/{id}', 'enableUser')->name('enableUser');
     Route::get('/eventsAdmin', 'eventsAdmin')->name('eventsAdmin');
     Route::get('/createEvent', 'createEvent')->name('createEvent');
     Route::post('/createEventSubmit', 'createEventSubmit')->name('createEventSubmit');
@@ -41,4 +35,15 @@ Route::middleware(Logado::class)->group(function () {
     Route::get('/disableEvent/{id}', 'disableEvent')->name('disableEvent');
     Route::get('/enableEvent/{id}', 'enableEvent')->name('enableEvent');
   });
+
+  Route::controller(UserController::class)->group(function () {
+    Route::get('/users', 'users')->name('users');
+    Route::get('/newUser', 'newUser')->name('newUser');
+    Route::post('/createUser', 'createUser')->name('createUser');
+    Route::get('/editUser/{id}', 'editUser')->name('editUser');
+    Route::post('/saveUserEdit', 'saveUserEdit')->name('saveUserEdit');
+    Route::get('/disableUser/{id}', 'disableUser')->name('disableUser');
+    Route::get('/enableUser/{id}', 'enableUser')->name('enableUser');
+  });
+  
 });
