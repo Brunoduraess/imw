@@ -42,19 +42,22 @@
          <p class="activies">Nossas atividades</p>
         <div class="cards">
             <div class="card cults">
+                <p class="emoji">⛪</p>
                 <p class="titulo">Cultos</p>
                 <p class="corpo">Venha viver momentos de fé e comunhão conosco! Nossos cultos são ocasiões especiais para adorar, refletir e fortalecer os laços com Deus e com a comunidade.  </p>
-                <a href="{{ route('events') }}"><button class="botao"> Saiba mais</button></a>
+                <a href="{{ route('events') }}"><button class="botao">Ver horários</button></a>
             </div>
             <div class="card projects">
+                <p class="emoji">👩🏽‍🏫</p>
                 <p class="titulo">Projetos</p>
                 <p class="corpo">Estamos sempre trabalhando em novos projetos para fortalecer nossa comunidade e promover o bem-estar de todos. Queremos que você esteja a par de todas as iniciativas e participe ativamente.</p>
-                <a href="{{ route('projects') }}"><button class="botao"> Saiba mais</button></a>
+                <a href="{{ route('projects') }}"><button class="botao">Conhecer projetos</button></a>
             </div>
             <div class="card meetings">
+                <p class="emoji">🫂</p>
                 <p class="titulo">Reuniões</p>
                 <p class="corpo">Nossas reuniões são momentos preciosos de união e crescimento espiritual. Venha compartilhar experiências, aprender e fortalecer sua fé em um ambiente acolhedor e fraterno.</p>
-                <a href="{{ route('events') }}"><button class="botao"> Saiba mais</button></a>
+                <a href="{{ route('events') }}"><button class="botao">Participar</button></a>
             </div>
         </div>
     </section>
