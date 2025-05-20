@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventType;
 use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,12 +50,9 @@ class EventController extends Controller
     public function createEvent()
     {
         $locations = Location::orderBy('nome')->get();
+        $types = EventType::orderBy('nome')->get();
 
-        foreach ($locations as $location) {
-            $location->id = (string) $location->id;
-        }
-
-        return view('admin.createEvent', ['locations' => $locations]);
+        return view('admin.createEvent', ['locations' => $locations, 'types' => $types]);
     }
 
     public function createEventSubmit(Request $request)

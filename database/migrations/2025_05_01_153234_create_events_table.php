@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('nome', 100);
             $table->text('descricao');
-            $table->string('tipo', 50);
+            $table->uuid('tipo');
             $table->date('data');
             $table->time('horario');
             $table->uuid('local_id');
@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->dateTime('desativado_em')->nullable();
             $table->string('desativado_por', 100)->nullable();
 
+            $table->foreign('tipo')->references('id')->on('event_types');
             $table->foreign('local_id')->references('id')->on('locations');
             $table->foreign('criado_por')->references('id')->on('users');
             $table->foreign('atualizado_por')->references('id')->on('users');

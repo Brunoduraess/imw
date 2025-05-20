@@ -13,34 +13,34 @@
                 Cadastrar novo evento
             </div>
             <div class="pagina">
-                <a href="{{ route('menu') }}">Menu</a> / <a href="{{ route('eventsAdmin') }}">Eventos</a> / Cadastrar novo evento
+                <a href="{{ route('menu') }}">Menu</a> / <a href="{{ route('eventsAdmin') }}">Eventos</a> / Cadastrar novo
+                evento
             </div>
         </div>
         <form action="{{ route('createEventSubmit') }}" method="post" enctype="multipart/form-data" class="row">
             @csrf
             <div class="form-group col-xl-12">
-                <label for="nome">Nome do evento:</label>
-                <input type="text" name="nome" id="nome" class="form-control"
-                    placeholder="Informe o nome do evento" value="{{ old('nome') }}">
-                @error('nome')
+                <label for="tipo">Tipo de evento:</label>
+                <select name="tipo" id="tipo" class="form-control">
+                    <option value="">-- Selecione uma opção --</option>
+                    @foreach ($types as $type)
+                        {
+                        <option value="{{ $type->id }} / {{ $type->descricao }} / {{ $type->nome }}"
+                            {{ old('tipo') == $type->id ? 'selected' : '' }}>
+                            {{ $type->nome }}
+                        </option>
+                    @endforeach
+                    }
+                </select>
+                @error('tipo')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group col-xl-12">
-                <label for="tipo">Tipo de evento:</label>
-                <select name="tipo" id="tipo" class="form-control">
-                    <option value="">-- Selecione uma opção --</option>
-                    <option>Conferência</option>
-                    <option>Culto de adoração</option>
-                    <option>Culto de missões</option>
-                    <option>Culto de mulheres</option>
-                    <option>Culto de oração</option>
-                    <option>Culto move</option>
-                    <option>Reunião</option>
-                    <option>Estudo biblíco</option>
-                    <option>6 horas de adoração</option>
-                </select>
-                @error('tipo')
+                <label for="nome">Nome do evento:</label>
+                <input type="text" name="nome" id="nome" class="form-control"
+                    placeholder="Informe o nome do evento" value="{{ old('nome') }}">
+                @error('nome')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
@@ -119,5 +119,23 @@
                 reverse: true
             });
         });
+
+        function onTipoChange(event) {
+            const selectedValue = event.target.value;
+            const descricao = selectedValue.split(' / ')[1];
+
+            if (descricao) {
+                const inputDescricao = document.getElementById('descricao');
+                inputDescricao.value = descricao;
+            }
+
+            const nome = selectedValue.split(' / ')[2];
+            if (nome) {
+                const inputNome = document.getElementById('nome');
+                inputNome.value = nome;
+            }
+        }
+
+        document.getElementById('tipo').addEventListener('change', onTipoChange);
     </script>
 @endsection
