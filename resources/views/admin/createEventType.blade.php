@@ -45,8 +45,8 @@
                 <button type="submit" class="btn btn-success">Cadastrar tipo de evento</button>
             </div>
             <div class="form-group col-xl-6">
-                <a href="{{ route('eventsAdmin') }}"><button type="button" class="btn btn-danger">Voltar para o menu de
-                        eventos</button></a>
+                <a href="{{ route('eventsType') }}"><button type="button" class="btn btn-danger">Voltar para o menu de
+                        tipos de evento</button></a>
             </div>
         </form>
     </section>
