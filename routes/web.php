@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Logado;
@@ -46,6 +47,14 @@ Route::middleware(Logado::class)->group(function () {
     Route::post('/editEventSubmit', 'editEventSubmit')->name('editEventSubmit');
     Route::get('/disableEvent/{id}', 'disableEvent')->name('disableEvent');
     Route::get('/enableEvent/{id}', 'enableEvent')->name('enableEvent');
+  });
+
+  Route::controller(EventTypeController::class)->group(function () {
+    Route::get('/eventsType', 'eventsType')->name('eventsType');
+    Route::get('/createEventType', 'createEventType')->name('createEventType');
+    Route::post('/createEventTypeSubmit', 'createEventTypeSubmit')->name('createEventTypeSubmit');
+    Route::get('/editEventType/{id}', 'editEventType')->name('editEventType');
+    Route::post('/editEventTypeSubmit', 'editEventTypeSubmit')->name('editEventTypeSubmit');
   });
 
 });
