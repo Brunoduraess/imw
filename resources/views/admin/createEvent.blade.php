@@ -26,7 +26,7 @@
                     @foreach ($types as $type)
                         {
                         <option value="{{ $type->id }} / {{ $type->descricao }} / {{ $type->nome }}"
-                            {{ old('tipo') == $type->id ? 'selected' : '' }}>
+                            {{ old('tipo') == $type->id . ' / ' . $type->descricao .' / '. $type->nome  ? 'selected' : '' }}>
                             {{ $type->nome }}
                         </option>
                     @endforeach
@@ -54,14 +54,14 @@
             </div>
             <div class="form-group col-xl-6">
                 <label for="data">Data do evento:</label>
-                <input type="date" name="data" id="data" min="{{ date('Y-m-d') }}" class="form-control">
+                <input type="date" name="data" id="data" min="{{ date('Y-m-d') }}" class="form-control" value="{{ old('data') }}">
                 @error('data')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group col-xl-6">
                 <label for="horario">Horário do evento:</label>
-                <input type="time" name="horario" id="horario" class="form-control">
+                <input type="time" name="horario" id="horario" class="form-control" value="{{ old('horario') }}">
                 @error('horario')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
