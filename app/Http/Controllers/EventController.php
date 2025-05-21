@@ -15,10 +15,12 @@ class EventController extends Controller
 {
     public function eventsAdmin()
     {
-        $events = Event::with('user')->get();
+        $events = Event::with(['user', 'eventType'])->get();
+
 
         foreach ($events as $event) {
             $event->criado_por = $event->user->nome;
+            $event->tipo = $event->eventType->nome;
 
             $quebraNome = explode(' ', $event->criado_por);
             $event->criado_por = $quebraNome[0] . " " . end($quebraNome);
@@ -36,6 +38,10 @@ class EventController extends Controller
             ->groupBy('tipo')
             ->orderBy('total', 'desc')
             ->get();
+
+        foreach ($eventsPerType as $eventPerType) {
+            $eventPerType->tipo = $eventPerType->eventType->nome;
+        }
 
         $eventPerLocation = Event::selectRaw('locations.nome as nome, count(events.id) as total')
             ->join('locations', 'events.local_id', '=', 'locations.id')
@@ -85,7 +91,8 @@ class EventController extends Controller
 
         $id = (string) Str::uuid();
         $nome = $request->input('nome');
-        $tipo = $request->input('tipo');
+        $tipo = explode(' / ', $request->input('tipo'));
+        $id_tipo = $tipo[0];
         $descricao = $request->input('descricao');
         $data = $request->input('data');
         $horario = $request->input('horario');
@@ -100,7 +107,7 @@ class EventController extends Controller
         $event->id = $id;
         $event->nome = $nome;
         $event->descricao = $descricao;
-        $event->tipo = $tipo;
+        $event->tipo = $id_tipo;
         $event->data = $data;
         $event->horario = $horario;
         $event->local_id = $local;
