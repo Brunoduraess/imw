@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventTypeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Logado;
@@ -55,6 +56,14 @@ Route::middleware(Logado::class)->group(function () {
     Route::post('/createEventTypeSubmit', 'createEventTypeSubmit')->name('createEventTypeSubmit');
     Route::get('/editEventType/{id}', 'editEventType')->name('editEventType');
     Route::post('/editEventTypeSubmit', 'editEventTypeSubmit')->name('editEventTypeSubmit');
+  });
+
+  Route::controller(LocationController::class)->group(function () {
+    Route::get('/locations', 'locations')->name('locations');
+    Route::get('/createLocation', 'createLocation')->name('createLocation');
+    Route::post('/createLocationSubmit', 'createLocationSubmit')->name('createLocationSubmit');
+    Route::get('/editLocation/{id}', 'editLocation')->name('editLocation');
+    Route::post('/editLocationSubmit', 'editLocationSubmit')->name('editLocationSubmit');
   });
 
 });
