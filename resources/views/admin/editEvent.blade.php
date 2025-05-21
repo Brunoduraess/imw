@@ -13,38 +13,24 @@
             @csrf
             <input type="hidden" name="id" value="{{ $event->id }}">
             <div class="form-group col-xl-12">
-                <label for="nome">Nome do evento:</label>
-                <input type="text" name="nome" id="nome" class="form-control"
-                    placeholder="Informe o nome do evento" value="{{ $event->nome }}">
-                @error('nome')
+                <label for="tipo">Tipo de evento:</label>
+                <select name="tipo" id="tipo" class="form-control">
+                    @foreach ($eventTypes as $type)
+                        <option value="{{ $type->id . ' / ' . $type->descricao . ' / ' . $type->nome }}"
+                            {{ $event->tipo == $type->id ? 'selected' : '' }}>
+                            {{ $type->nome }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('tipo')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group col-xl-12">
-                <label for="tipo">Tipo de evento:</label>
-                <select name="tipo" id="tipo" class="form-control">
-                    @php
-                        $arrayTipos = [
-                            'Conferência',
-                            'Culto de adoração',
-                            'Culto de missões',
-                            'Culto de mulheres',
-                            'Culto de oração',
-                            'Culto move',
-                            'Reunião',
-                            'Estudo biblíco',
-                            '6 horas de adoração',
-                        ];
-                    @endphp
-                    @foreach ($arrayTipos as $tipo)
-                        @if ($event->tipo == $tipo)
-                            <option selected>{{ $tipo }}</option>
-                        @else
-                            <option>{{ $tipo }}</option>
-                        @endif
-                    @endforeach
-                </select>
-                @error('tipo')
+                <label for="nome">Nome do evento:</label>
+                <input type="text" name="nome" id="nome" class="form-control"
+                    placeholder="Informe o nome do evento" value="{{ $event->nome }}">
+                @error('nome')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
@@ -136,5 +122,23 @@
                 reverse: true
             });
         });
+
+        function onTipoChange(event) {
+            const selectedValue = event.target.value;
+            const descricao = selectedValue.split(' / ')[1];
+
+            if (descricao) {
+                const inputDescricao = document.getElementById('descricao');
+                inputDescricao.value = descricao;
+            }
+
+            const nome = selectedValue.split(' / ')[2];
+            if (nome) {
+                const inputNome = document.getElementById('nome');
+                inputNome.value = nome;
+            }
+        }
+
+        document.getElementById('tipo').addEventListener('change', onTipoChange);
     </script>
 @endsection
