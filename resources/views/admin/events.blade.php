@@ -60,7 +60,7 @@
                         <hr>
                     @endforeach
                 </div>
-                <a href="{{ route('createEvent') }}" class="btn btn-success">Consultar locais -></a>
+                <a href="{{ route('locations') }}" class="btn btn-success">Consultar locais -></a>
             </div>
         </div>
         <div class="acoes">
