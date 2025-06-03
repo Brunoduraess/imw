@@ -81,7 +81,6 @@ class EventController extends Controller
                 'descricao.required' => 'É necessário informar uma descrição para o evento',
                 'descricao.min' => 'A descrição deve possuir no mínimo 20 caracteres',
                 'data.required' => 'É necessário informar a data do evento',
-                // 'data.min' => 'Não é possível informar data inferiores a hoje',
                 'horario.required' => 'É necessário informar o horário do evento',
                 'local.required' => 'É necessário informar o local do evento',
                 'imagem_agenda' => 'É necessário inserir a imagem que será exibida na agenda do site',
@@ -136,11 +135,13 @@ class EventController extends Controller
 
         $locations = Location::orderBy('nome')->get();
 
+        $eventTypes = EventType::orderBy('nome')->get();
+
         foreach ($locations as $location) {
             $location->id = (string) $location->id;
         }
 
-        return view('admin.editEvent', ['event' => $event, 'locations' => $locations]);
+        return view('admin.editEvent', ['event' => $event, 'locations' => $locations, 'eventTypes' => $eventTypes]);
     }
 
     public function editEventSubmit(Request $request)
@@ -168,7 +169,8 @@ class EventController extends Controller
 
         $id = $request->input('id');
         $nome = $request->input('nome');
-        $tipo = $request->input('tipo');
+        $tipo = explode(' / ', $request->input('tipo'));
+        $id_tipo = $tipo[0];
         $descricao = $request->input('descricao');
         $data = $request->input('data');
         $horario = $request->input('horario');
@@ -193,7 +195,7 @@ class EventController extends Controller
                 'id' => $id,
                 'nome' => $nome,
                 'descricao' => $descricao,
-                'tipo' => $tipo,
+                'tipo' => $id_tipo,
                 'data' => $data,
                 'horario' => $horario,
                 'local_id' => $local,
