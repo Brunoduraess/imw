@@ -22,181 +22,44 @@
         </p>
         <p class="periodo">Nessa semana</p>
         <section class="eventos">
-            <a href="{{ route('event_detail') }}" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento.png') }}" alt="">
-                    <p class="titulo-evento">Culto da Rede Move</p>
-                    <p class="data-evento">08 de junho, 18:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
-                    <p class="titulo-evento">Culto de Mulheres</p>
-                    <p class="data-evento">08 de dezembro, 19:30 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
+            @foreach ($eventosSemanaAtual as $eventoSemanaAtual)
+                <a href="{{ route('event_detail', ['id' => $eventoSemanaAtual->id]) }}" class="card-evento">
+                    <div>
+                        <img src="{{ asset('storage/' . $eventoSemanaAtual->imagem_agenda . '') }}" alt="">
+                        <p class="titulo-evento">{{ $eventoSemanaAtual->nome }}</p>
+                        <p class="data-evento">{{ $eventoSemanaAtual->data }}, {{ $eventoSemanaAtual->horario }} horas.</p>
+                    </div>
+                </a>
+            @endforeach
         </section>
         <p class="periodo">Próximas semanas</p>
         <section class="eventos">
-            <a href="{{ route('event_detail') }}" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento.png') }}" alt="">
-                    <p class="titulo-evento">Culto da Rede Move</p>
-                    <p class="data-evento">08 de junho, 18:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
-                    <p class="titulo-evento">Culto de Mulheres</p>
-                    <p class="data-evento">08 de dezembro, 19:30 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
+            @foreach ($eventosProximaSemana as $eventoProximaSemana)
+                <a href="{{ route('event_detail', ['id' => $eventoProximaSemana->id]) }}" class="card-evento">
+                    <div>
+                        <img src="{{ asset('storage/' . $eventoProximaSemana->imagem_agenda . '') }}" alt="">
+                        <p class="titulo-evento">{{ $eventoProximaSemana->nome }}</p>
+                        <p class="data-evento">{{ $eventoProximaSemana->data }}, {{ $eventoProximaSemana->horario }} horas.
+                        </p>
+                    </div>
+                </a>
+            @endforeach
         </section>
-        <p class="periodo">Próximos meses</p>
-        <section class="eventos">
-            <a href="{{ route('event_detail') }}" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento.png') }}" alt="">
-                    <p class="titulo-evento">Culto da Rede Move</p>
-                    <p class="data-evento">08 de junho, 18:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_2.png') }}" alt="">
-                    <p class="titulo-evento">Culto de Mulheres</p>
-                    <p class="data-evento">08 de dezembro, 19:30 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-            <a href="" class="card-evento">
-                <div>
-                    <img src="{{ asset('assets/images/evento_3.png') }}" alt="">
-                    <p class="titulo-evento">Culto de adoração</p>
-                    <p class="data-evento">19 de janeiro, 19:00 horas.</p>
-                </div>
-            </a>
-        </section>
+        @if (count($eventosProximoMes) > 0)
+            <p class="periodo">Próximos meses</p>
+            <section class="eventos">
+                @foreach ($eventosProximoMes as $eventoProximoMes)
+                    <a href="{{ route('event_detail', ['id' => $eventoProximoMes->id]) }}" class="card-evento">
+                        <div>
+                            <img src="{{ asset('storage/' . $eventoProximoMes->imagem_agenda . '') }}" alt="">
+                            <p class="titulo-evento">{{ $eventoProximoMes->nome }}</p>
+                            <p class="data-evento">{{ $eventoProximoMes->data }}, {{ $eventoProximoMes->horario }} horas.
+                            </p>
+                        </div>
+                    </a>
+                @endforeach
+            </section>
+        @endif
     </section>
 
     @include('layouts.footer')

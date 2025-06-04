@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -42,7 +45,115 @@ class MainController extends Controller
 
     public function events()
     {
-        return view('events');
+
+        $hoje = new DateTime();
+
+        $diaSemana = (int) $hoje->format('w');
+
+        $inicioSemanaAtual = clone $hoje;
+        $fimSemanaAtual = clone $hoje;
+        if ($diaSemana !== 0) {
+            $diasParaDomingo = 7 - $diaSemana;
+            $fimSemanaAtual->modify("+$diasParaDomingo days");
+        }
+
+        $eventosSemanaAtual = Event::whereBetween('data', [$inicioSemanaAtual, $fimSemanaAtual])->get();
+
+        foreach ($eventosSemanaAtual as $eventoSemanaAtual) {
+            $data = new DateTime($eventoSemanaAtual->data);
+            $mes = $data->format('m');
+            $dia = $data->format('d');
+            $eventoSemanaAtual->data = $dia . " de " . $this->getMes($mes);
+
+            $horario = new DateTime($eventoSemanaAtual->horario);
+            $eventoSemanaAtual->horario = $horario->format('H:i');
+        }
+
+        $inicioProximaSemana = clone $fimSemanaAtual;
+        $inicioProximaSemana->modify('+1 day');
+
+        $fimProximaSemana = clone $inicioProximaSemana;
+        $fimProximaSemana->modify('+6 days');
+
+        $eventosProximaSemana = Event::whereBetween('data', [$inicioProximaSemana, $fimProximaSemana])->get();
+
+
+        foreach ($eventosProximaSemana as $eventoProximaSemana) {
+            $data = new DateTime($eventoProximaSemana->data);
+            $mes = $data->format('m');
+            $dia = $data->format('d');
+            $eventoProximaSemana->data = $dia . " de " . $this->getMes($mes);
+
+            $horario = new DateTime($eventoProximaSemana->horario);
+            $eventoProximaSemana->horario = $horario->format('H:i');
+        }
+
+        $mesAtual = clone $hoje;
+        $proximoMes = clone $hoje;
+
+        $proximoMes->modify('+1 month');
+
+        $mesAtual->format('m');
+        $proximoMes->format('m');
+
+        $eventosProximoMes = Event::whereMonth('data', $proximoMes)->get();
+
+
+        foreach ($eventosProximoMes as $eventoProximoMes) {
+            $data = new DateTime($eventoProximoMes->data);
+            $mes = $data->format('m');
+            $dia = $data->format('d');
+            $eventoProximoMes->data = $dia . " de " . $this->getMes($mes);
+
+            $horario = new DateTime($eventoProximoMes->horario);
+            $eventoProximoMes->horario = $horario->format('H:i');
+        }
+
+        return view('events', ['eventosSemanaAtual' => $eventosSemanaAtual, 'eventosProximaSemana' => $eventosProximaSemana, 'eventosProximoMes' => $eventosProximoMes]);
+    }
+
+    private function getMes($numeroMes): string
+    {
+        switch ($numeroMes) {
+            case 1:
+                $mesDescrito = 'Janeiro';
+                break;
+            case 2:
+                $mesDescrito = 'Fevereiro';
+                break;
+            case 3:
+                $mesDescrito = 'Março';
+                break;
+            case 4:
+                $mesDescrito = 'Abril';
+                break;
+            case 5:
+                $mesDescrito = 'Maio';
+                break;
+            case 6:
+                $mesDescrito = 'Junho';
+                break;
+            case 7:
+                $mesDescrito = 'Julho';
+                break;
+            case 8:
+                $mesDescrito = 'Agosto';
+                break;
+            case 9:
+                $mesDescrito = 'Setembro';
+                break;
+            case 10:
+                $mesDescrito = 'Outubro';
+                break;
+            case 11:
+                $mesDescrito = 'Novembro';
+                break;
+            case 12:
+                $mesDescrito = 'Dezembro';
+                break;
+        }
+
+        return $mesDescrito;
     }
 
     public function event_detail()
