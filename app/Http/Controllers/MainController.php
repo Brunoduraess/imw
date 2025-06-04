@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\contactMail;
 use App\Models\Event;
 use App\Models\Location;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 date_default_timezone_set('America/Bahia');
@@ -178,6 +180,36 @@ class MainController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+
+    public function contactSubmit(Request $request)
+    {
+        $request->validate(
+            [
+                'nome' => 'required|string|max:100',
+                'telefone' => 'required|string|max:15',
+                'email' => 'required|email|max:100',
+                'assunto' => 'required|string',
+                'mensagem' => 'required|string',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'telefone.required' => 'O campo telefone é obrigatório.',
+                'email.required' => 'O campo email é obrigatório.',
+                'assunto.required' => 'O campo assunto é obrigatório.',
+                'mensagem.required' => 'O campo mensagem é obrigatório.',
+            ]
+        );
+
+        $nome = $request->input('nome');
+        $telefone = $request->input('telefone');
+        $telefoneTratado = Str::replace(['(', ')', '-', ' '], '', $telefone);
+        $assunto = $request->input('assunto');
+        $mensagem = $request->input('mensagem');
+        $email = 'contato@imwve.com.br';
+
+        Mail::to($email)->bcc('brunoduraes03@gmail.com')->send(new contactMail($nome, $telefone, $telefoneTratado, $assunto, $mensagem));
+
     }
 
 }
