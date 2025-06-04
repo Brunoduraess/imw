@@ -210,6 +210,12 @@ class MainController extends Controller
 
         Mail::to($email)->bcc('brunoduraes03@gmail.com')->send(new contactMail($nome, $telefone, $telefoneTratado, $assunto, $mensagem));
 
+        return redirect()->route('confirm');
+    }
+
+    public function confirm()
+    {
+        return view('confirm');
     }
 
 }

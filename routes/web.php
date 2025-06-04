@@ -19,6 +19,7 @@ Route::controller(MainController::class)->group(function () {
   Route::get('/event_detail/{id}', 'event_detail')->name('event_detail');
   Route::get('/contact', 'contact')->name('contact');
   Route::post('/contactSubmit', 'contactSubmit')->name('contactSubmit');
+  Route::get('/confirm', 'confirm')->name('confirm');
 });
 
 Route::controller(AuthController::class)->group(function () {

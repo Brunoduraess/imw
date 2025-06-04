@@ -330,10 +330,10 @@ footer {
         .card-evento {
             border-radius: 10px;
             width: 200px;
-            
+
             & img {
-               width: 200px;
-               height: 200px;
+                width: 200px;
+                height: 200px;
                 border-radius: 10px;
             }
 
@@ -1142,6 +1142,45 @@ footer {
 
 /* #endregion */
 
+/* #region -------------- CONFIRMA ------------ */
+
+.confirma {
+    width: 40%;
+    margin: 5% 0 0 30%;
+    padding: 2%;
+    height: 500px;
+
+    h1 {
+        color: #2caf1e;
+        margin-bottom: 1rem;
+        font-family: 'Sao Francisco Semi Bold';
+        display: flex;
+        align-items: center;
+    }
+
+    p {
+        font-size: 17px;
+        color: var(--fosco);
+    }
+
+    a {
+        margin: 10% 0 0 0;
+        display: inline-block;
+        padding: 2%;
+        background-color: #2caf1e;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+    }
+
+    a:hover {
+        background-color: #2caf1e;
+    }
+}
+
+
+/* #endregion */
+
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .home {
         width: 80%;
@@ -1342,6 +1381,8 @@ footer {
         }
 
     }
+
+    /* #endregion */
 
     /* #region --------- DETALHE EVENTO --------- */
 
@@ -1595,7 +1636,7 @@ footer {
         }
     }
 
-    /* #enderegion */
+    /* #endregion */
 
     /* #region -------------- LOGIN ------------ */
 
@@ -1684,4 +1725,29 @@ footer {
     }
 
     /* #endregion */
+
+    /* #region -------------- CONFIRMA ------------ */
+
+    .confirma {
+        width: 90%;
+        margin: 5% 0 0 5%;
+        padding: 5%;
+
+        h1 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 17px;
+        }
+
+        a {
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            height: auto;
+        }
+    }
+
+    /* endregion */
 }
