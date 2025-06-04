@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Location;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
@@ -57,7 +58,7 @@ class MainController extends Controller
             $fimSemanaAtual->modify("+$diasParaDomingo days");
         }
 
-        $eventosSemanaAtual = Event::whereBetween('data', [$inicioSemanaAtual, $fimSemanaAtual])->get();
+        $eventosSemanaAtual = Event::where('status', '=', 'Ativo')->whereBetween('data', [$inicioSemanaAtual, $fimSemanaAtual])->get();
 
         foreach ($eventosSemanaAtual as $eventoSemanaAtual) {
             $data = new DateTime($eventoSemanaAtual->data);
@@ -75,7 +76,7 @@ class MainController extends Controller
         $fimProximaSemana = clone $inicioProximaSemana;
         $fimProximaSemana->modify('+6 days');
 
-        $eventosProximaSemana = Event::whereBetween('data', [$inicioProximaSemana, $fimProximaSemana])->get();
+        $eventosProximaSemana = Event::where('status', '=', 'Ativo')->whereBetween('data', [$inicioProximaSemana, $fimProximaSemana])->get();
 
 
         foreach ($eventosProximaSemana as $eventoProximaSemana) {
@@ -96,7 +97,7 @@ class MainController extends Controller
         $mesAtual->format('m');
         $proximoMes->format('m');
 
-        $eventosProximoMes = Event::whereMonth('data', $proximoMes)->get();
+        $eventosProximoMes = Event::where('status', '=', 'Ativo')->whereMonth('data', $proximoMes)->get();
 
 
         foreach ($eventosProximoMes as $eventoProximoMes) {
@@ -156,9 +157,22 @@ class MainController extends Controller
         return $mesDescrito;
     }
 
-    public function event_detail()
+    public function event_detail($id)
     {
-        return view('event_detail');
+        $evento = Event::find($id);
+
+        $local = Location::find($evento->local_id);
+
+        $data = new DateTime($evento->data);
+        $mes = $data->format('m');
+        $dia = $data->format('d');
+        $evento->data = $dia . " de " . $this->getMes($mes);
+
+        $horario = new DateTime($evento->horario);
+        $evento->horario = $horario->format('H:i');
+
+
+        return view('event_detail', ['evento' => $evento, 'local' => $local]);
     }
 
     public function contact()

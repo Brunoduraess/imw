@@ -16,7 +16,7 @@ Route::controller(MainController::class)->group(function () {
   Route::get('/projects', 'projects')->name('projects');
   Route::get('/project_detail/{tipo}', 'project_detail')->name('project_detail');
   Route::get('/events', 'events')->name('events');
-  Route::get('/event_detail', 'event_detail')->name('event_detail');
+  Route::get('/event_detail/{id}', 'event_detail')->name('event_detail');
   Route::get('/contact', 'contact')->name('contact');
 });
 
