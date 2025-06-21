@@ -51,7 +51,7 @@
             @endif
             <button type="submit" class="btn btn-success">Entrar</button>
         </form>
-        <a href="{{ route('forgot_password') }}" class="troca_senha">Esqueci minha senha</a>
+        <a href="{{ route('forgot_password') }}" class="troca_senha">Esqueci minha senha / primeiro acesso</a>
     </section>
     <script>
         var senha = $('#senha');

@@ -201,7 +201,7 @@ class MainController extends Controller
             ]
         );
 
-        $nome = $request->input('nome');
+        $nome = $request->input('nome');  
         $telefone = $request->input('telefone');
         $telefoneTratado = Str::replace(['(', ')', '-', ' '], '', $telefone);
         $assunto = $request->input('assunto');

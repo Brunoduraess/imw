@@ -26,6 +26,8 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/login', 'login')->name('login');
   Route::post('/loginSubmit', 'loginSubmit')->name('loginSubmit');
   Route::get('/forgot_password', 'forgot_password')->name('forgot_password');
+  Route::post('/forgot_password_submit', 'forgot_password_submit')->name('forgot_password_submit');
+  Route::get('/send_confirm', 'send_confirm')->name('send_confirm');
 });
 
 Route::middleware(Logado::class)->group(function () {
@@ -67,5 +69,4 @@ Route::middleware(Logado::class)->group(function () {
     Route::get('/editLocation/{id}', 'editLocation')->name('editLocation');
     Route::post('/editLocationSubmit', 'editLocationSubmit')->name('editLocationSubmit');
   });
-
 });

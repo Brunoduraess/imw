@@ -833,7 +833,8 @@ footer {
             height: 20px;
         }
 
-        & .senha #pirata {
+        & .senha #pirata,
+        .senha #pirataConfirma {
             display: none;
         }
     }
@@ -1178,6 +1179,66 @@ footer {
     }
 }
 
+
+/* #endregion */
+
+/* #region -------------- CONFIRMA ENVIO ------------ */
+
+.confirmaEnvio {
+    width: 40%;
+    margin: 5% 0 0 30%;
+    padding: 2%;
+    height: 500px;
+    box-shadow: 0 0 15px -2px var(--cinza);
+    border-radius: 10px;
+
+    & .descricao {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10%;
+
+        & img {
+            height: 60px;
+        }
+
+        & .titulo {
+            font-family: "Sao Francisco Semi Bold";
+            font-size: 25px;
+            margin: 0;
+        }
+    }
+
+    h1 {
+        color: #2caf1e;
+        margin-bottom: 1rem;
+        font-family: 'Sao Francisco Semi Bold';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    p {
+        font-size: 17px;
+        color: var(--fosco);
+        text-align: center;
+    }
+
+    a {
+        margin: 10% 0 0 30%;
+        width: 40%;
+        display: flex;
+        padding: 2%;
+        background-color: #2caf1e;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        justify-content: center;
+    }
+
+    a:hover {
+        background-color: #2caf1e;
+    }
+}
 
 /* #endregion */
 
