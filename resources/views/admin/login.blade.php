@@ -14,11 +14,11 @@
         <form action="{{ route('loginSubmit') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="cpf" class="form-label">CPF:</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Informe o seu CPF"
-                    value="{{ old('cpf') }}">
+                <label for="email" class="form-label">E-mail:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Informe o seu email"
+                    value="{{ old('email') }}">
             </div>
-            @error('cpf')
+            @error('email')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
             <div class="mb-3 senha">
@@ -53,13 +53,7 @@
         </form>
         <a href="{{ route('forgot_password') }}" class="troca_senha">Esqueci minha senha</a>
     </section>
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.mask.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#cpf').mask('000.000.000-00');
-        });
-
         var senha = $('#senha');
         var olho = $("#olho");
         var pirata = $("#pirata");

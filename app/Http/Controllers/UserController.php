@@ -13,7 +13,6 @@ class UserController extends Controller
         $users = User::orderBy('nome', 'asc')->get();
 
         foreach ($users as $user) {
-            $user->cpf = $this->formataCPF($user->cpf);
             $user->data_criacao = date('d/m/Y H:i', strtotime($user->criado_em));
 
             if ($user->ultimo_acesso) {
@@ -45,16 +44,6 @@ class UserController extends Controller
         return view('admin/users', ['users' => $users, 'userPerStatus' => $userPerStatus, 'userPerProfile' => $userPerProfile, 'lastAccess' => $lastAccess]);
     }
 
-    private function formataCPF($cpf)
-    {
-        $cpfFormatado = preg_replace(
-            '/(\d{3})(\d{3})(\d{3})(\d{2})/',
-            '$1.$2.$3-$4',
-            $cpf
-        );
-        return $cpfFormatado;
-    }
-
     public function newUser()
     {
         return view('admin/newUser');
@@ -65,22 +54,19 @@ class UserController extends Controller
         $request->validate(
             [
                 'nome' => 'required',
-                'email' => 'required',
-                'cpf' => 'required|min:14',
+                'email' => 'required|email',
                 'acesso' => 'required',
             ],
             [
                 'nome.required' => 'O campo nome é obrigatório.',
                 'email.required' => 'O campo email é obrigatório.',
-                'cpf.required' => 'O campo CPF é obrigatório.',
-                'cpf.min' => 'O CPF deve ter 11 números.',
+                'email.email' => 'O campo email deve ser um endereço de email válido.',
                 'acesso.required' => 'O campo nível de acesso é obrigatório.',
             ]
         );
 
         $nome = $request->input('nome');
         $email = $request->input('email');
-        $cpf = str_replace(['.', '-'], '', $request->input('cpf'));
         $acesso = $request->input('acesso');
         $status = 'Ativo';
         $data = date('Y-m-d H:i:s');
@@ -90,7 +76,6 @@ class UserController extends Controller
         $user->id = (string) Str::uuid();
         $user->nome = $nome;
         $user->email = $email;
-        $user->cpf = $cpf;
         $user->acesso = $acesso;
         $user->status = $status;
         $user->criado_em = $data;
@@ -112,15 +97,13 @@ class UserController extends Controller
         $request->validate(
             [
                 'nome' => 'required',
-                'email' => 'required',
-                'cpf' => 'required|min:14',
+                'email' => 'required|email',
                 'acesso' => 'required',
             ],
             [
                 'nome.required' => 'O campo nome é obrigatório.',
                 'email.required' => 'O campo email é obrigatório.',
-                'cpf.required' => 'O campo CPF é obrigatório.',
-                'cpf.min' => 'O CPF deve ter 11 números.',
+                'email.email' => 'O campo email deve ser um endereço de email válido.',
                 'acesso.required' => 'O campo nível de acesso é obrigatório.',
             ]
         );
@@ -129,7 +112,6 @@ class UserController extends Controller
             ->update([
                 'nome' => $request->input('nome'),
                 'email' => $request->input('email'),
-                'cpf' => str_replace(['-', '.'], '', $request->input('cpf')),
                 'acesso' => $request->input('acesso')
             ]);
 

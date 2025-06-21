@@ -70,7 +70,6 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>CPF</th>
                         <th>Email</th>
                         <th>Perfil</th>
                         <th>Status</th>
@@ -83,7 +82,6 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->nome }}</td>
-                            <td>{{ $user->cpf }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->acesso }}</td>
                             <td style="width: 100px">
