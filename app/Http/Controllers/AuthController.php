@@ -105,6 +105,64 @@ class AuthController extends Controller
         return view('admin/send_confirm');
     }
 
+    public function update_password($token)
+    {
+        $tokenRecord = Token::where('token', $token)->first();
+
+        if (!$tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
+            return redirect()->route('login');
+        }
+
+        return view('admin/update_password', ['token' => $token]);
+    }
+
+    public function update_password_submit(Request $request, $token)
+    {
+        $request->validate(
+            [
+                'senha' => 'required',
+                'confirmaSenha' => 'required'
+            ],
+            [
+                'senha.required' => 'A senha é obrigatória',
+                'confirmaSenha.required' => 'A confirmação da senha é obrigatória'
+            ]
+        );
+
+        $senha = $request->input('senha');
+        $confirmaSenha = $request->input('confirmaSenha');
+
+        if ($senha !== $confirmaSenha) {
+            return redirect()->back()->withInput()->with('error', 'As senhas não coincidem');
+        }
+
+        if (!preg_match('/[A-Z]/', $senha)) {
+            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos uma letra maiúscula');
+        }
+
+        if (!preg_match('/[0-9]/', $senha)) {
+            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um número');
+        }
+
+        if (!preg_match('/[\W_]/', $senha)) {
+            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um caractere especial');
+        }
+
+        $tokenRecord = Token::where('token', $token)->first();
+
+        if (!$tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
+            return redirect()->route('login');
+        }
+
+        $user = User::where('email', $tokenRecord->email)->first();
+        $user->senha = bcrypt($request->input('senha'));
+        $user->save();
+
+        $tokenRecord->delete();
+
+        return redirect()->route('login')->with('success', 'Senha atualizada com sucesso');
+    }
+
     public function logout()
     {
         session()->flush();
