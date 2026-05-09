@@ -19,16 +19,16 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="{{ asset(path: 'assets/images/home_1.svg') }}" class="carousel-img img-pc" alt="...">
-                    <img src="{{ asset(path: 'assets/images/home_1_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
+                    <img src="{{ $imagens['home_1'] }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ $imagens['home_1_mobile'] }}" class="carousel-img img-mobile" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                    <img src="{{ asset(path: 'assets/images/home_2.svg') }}" class="carousel-img img-pc" alt="...">
-                    <img src="{{ asset(path: 'assets/images/home_2_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
+                    <img src="{{ $imagens['home_2'] }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ $imagens['home_2_mobile'] }}" class="carousel-img img-mobile" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="5000">
-                    <img src="{{ asset('assets/images/home_3.svg') }}" class="carousel-img img-pc" alt="...">
-                    <img src="{{ asset('assets/images/home_3_mobile.svg') }}" class="carousel-img img-mobile" alt="...">
+                    <img src="{{ $imagens['home_3'] }}" class="carousel-img img-pc" alt="...">
+                    <img src="{{ $imagens['home_3_mobile'] }}" class="carousel-img img-mobile" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"

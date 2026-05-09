@@ -10,7 +10,7 @@
     <section class="contact">
         <p class="titulo">Fale Conosco</p>
         <div class="dados">
-            <img src="{{ asset('assets/images/fale_conosco.svg') }}" alt="" class="mensagem">
+            <img src="{{ $imagemContato }}" alt="" class="mensagem">
             <form action="{{ route('contactSubmit') }}" method="post">
                 @csrf
                 <div class="form-group col-xl-12">

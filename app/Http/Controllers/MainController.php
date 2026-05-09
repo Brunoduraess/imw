@@ -3,26 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Mail\contactMail;
+use App\Managers\FileManager;
 use App\Models\Event;
 use App\Models\Location;
-use App\Models\User;
-use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-date_default_timezone_set('America/Bahia');
-
 class MainController extends Controller
 {
+    public function __construct (
+        private FileManager $fileManager
+    ){}
+
     public function home()
     {
-        return view('home');
+        $imagens = [
+            'home_1'        => $this->fileManager->url('configuracoes/home_1.svg'),
+            'home_1_mobile' => $this->fileManager->url('configuracoes/home_1_mobile.svg'),
+            'home_2'        => $this->fileManager->url('configuracoes/home_2.svg'),
+            'home_2_mobile' => $this->fileManager->url('configuracoes/home_2_mobile.svg'),
+            'home_3'        => $this->fileManager->url('configuracoes/home_3.svg'),
+            'home_3_mobile' => $this->fileManager->url('configuracoes/home_3_mobile.svg'),
+        ];
+
+        return view('home', compact('imagens'));
     }
     public function about()
     {
-        return view('about');
+        $imagemSobre = $this->fileManager->url('admin/sobre.png');
+
+        return view('about', compact('imagemSobre'));
     }
     public function projects()
     {
@@ -179,7 +191,9 @@ class MainController extends Controller
 
     public function contact()
     {
-        return view('contact');
+        $imagemContato = $this->fileManager->url('admin/fale_conosco.svg');
+        
+        return view('contact', compact('imagemContato'));
     }
 
     public function contactSubmit(Request $request)
