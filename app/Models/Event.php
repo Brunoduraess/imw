@@ -15,6 +15,26 @@ class Event extends Model
 
     const UPDATED_AT = 'atualizado_em';
 
+    protected $fillable = [
+        'id',
+        'nome',
+        'descricao',
+        'tipo',
+        'data',
+        'horario',
+        'local_id',
+        'inscricao',
+        'imagem_agenda',
+        'imagem_detalhe',
+        'status',
+        'criado_por',
+        'criado_em',
+        'atualizado_em',
+        'atualizado_por',
+        'desativado_em',
+        'desativado_por',
+    ];
+
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);

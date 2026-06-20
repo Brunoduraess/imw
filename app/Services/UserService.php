@@ -44,15 +44,15 @@ class UserService
 
     public function create(array $data): User
     {
-        $user = new User;
-        $user->id = (string) Str::uuid();
-        $user->nome = $data['nome'];
-        $user->email = $data['email'];
-        $user->acesso = $data['acesso'];
-        $user->status = 'Ativo';
-        $user->criado_em = now();
-        $user->senha = Hash::make(Str::random(64));
-        $user->save();
+        $user = User::create([
+            'id' => (string) Str::uuid(),
+            'nome' => $data['nome'],
+            'email' => $data['email'],
+            'acesso' => $data['acesso'],
+            'status' => 'Ativo',
+            'criado_em' => now(),
+            'senha' => Hash::make(Str::random(64)),
+        ]);
 
         Password::sendResetLink(['email' => $user->email]);
 
@@ -75,19 +75,19 @@ class UserService
 
     public function disable(string $id, string $disabledBy): void
     {
-        $user = User::find($id);
-        $user->status = 'Inativo';
-        $user->desativado_em = now();
-        $user->desativado_por = $disabledBy;
-        $user->save();
+        User::whereKey($id)->update([
+            'status' => 'Inativo',
+            'desativado_em' => now(),
+            'desativado_por' => $disabledBy,
+        ]);
     }
 
     public function enable(string $id): void
     {
-        $user = User::find($id);
-        $user->status = 'Ativo';
-        $user->desativado_em = null;
-        $user->desativado_por = null;
-        $user->save();
+        User::whereKey($id)->update([
+            'status' => 'Ativo',
+            'desativado_em' => null,
+            'desativado_por' => null,
+        ]);
     }
 }

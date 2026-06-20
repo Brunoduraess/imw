@@ -12,6 +12,13 @@ class EventType extends Model
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'id',
+        'nome',
+        'descricao',
+        'total_dias',
+    ];
+
     public function events()
     {
         return $this->hasMany(Event::class, 'tipo', 'id');

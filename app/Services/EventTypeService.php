@@ -15,14 +15,12 @@ class EventTypeService
 
     public function create(array $data): EventType
     {
-        $eventType = new EventType;
-        $eventType->id = (string) Str::uuid();
-        $eventType->nome = $data['nome'];
-        $eventType->descricao = $data['descricao'];
-        $eventType->total_dias = $data['duracao'];
-        $eventType->save();
-
-        return $eventType;
+        return EventType::create([
+            'id' => (string) Str::uuid(),
+            'nome' => $data['nome'],
+            'descricao' => $data['descricao'],
+            'total_dias' => $data['duracao'],
+        ]);
     }
 
     public function find(string $id): ?EventType

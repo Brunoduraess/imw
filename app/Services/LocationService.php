@@ -23,12 +23,11 @@ class LocationService
 
     public function create(array $data): Location
     {
-        $location = new Location;
-        $location->id = (string) Str::uuid();
-        $this->fill($location, $data);
-        $location->save();
-
-        return $location;
+        return Location::create([
+            'id' => (string) Str::uuid(),
+            ...$this->attributes($data),
+            'complemento' => $data['complemento'] ?? '',
+        ]);
     }
 
     public function find(string $id): ?Location
@@ -38,22 +37,22 @@ class LocationService
 
     public function update(array $data): void
     {
-        $location = Location::find($data['id']);
-        $this->fill($location, $data, true);
-        $location->save();
+        Location::whereKey($data['id'])->update($this->attributes($data, true));
     }
 
-    private function fill(Location $location, array $data, bool $removeDots = false): void
+    private function attributes(array $data, bool $removeDots = false): array
     {
         $phoneCharacters = $removeDots ? ['-', '(', ')', ' ', '.'] : ['-', '(', ')', ' '];
 
-        $location->nome = $data['nome'];
-        $location->rua = $data['rua'];
-        $location->numero = $data['numero'];
-        $location->bairro = $data['bairro'];
-        $location->cidade = $data['cidade'];
-        $location->cep = str_replace('-', '', $data['cep']);
-        $location->responsavel = $data['responsavel'];
-        $location->tel_responsavel = str_replace($phoneCharacters, '', $data['tel_responsavel']);
+        return [
+            'nome' => $data['nome'],
+            'rua' => $data['rua'],
+            'numero' => $data['numero'],
+            'bairro' => $data['bairro'],
+            'cidade' => $data['cidade'],
+            'cep' => str_replace('-', '', $data['cep']),
+            'responsavel' => $data['responsavel'],
+            'tel_responsavel' => str_replace($phoneCharacters, '', $data['tel_responsavel']),
+        ];
     }
 }

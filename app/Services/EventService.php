@@ -59,22 +59,22 @@ class EventService
     public function create(array $data, string $userId): Event
     {
         $id = (string) Str::uuid();
-        $event = new Event;
-        $event->id = $id;
-        $event->nome = $data['nome'];
-        $event->descricao = $data['descricao'];
-        $event->tipo = $this->eventTypeId($data['tipo']);
-        $event->data = $data['data'];
-        $event->horario = $data['horario'];
-        $event->local_id = $data['local'];
-        $event->inscricao = $this->formatPrice($data['valor'] ?? null);
-        $event->imagem_agenda = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']);
-        $event->imagem_detalhe = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']);
-        $event->criado_em = now();
-        $event->criado_por = $userId;
-        $event->save();
 
-        return $event;
+        return Event::create([
+            'id' => $id,
+            'nome' => $data['nome'],
+            'descricao' => $data['descricao'],
+            'tipo' => $this->eventTypeId($data['tipo']),
+            'data' => $data['data'],
+            'horario' => $data['horario'],
+            'local_id' => $data['local'],
+            'inscricao' => $this->formatPrice($data['valor'] ?? null),
+            'imagem_agenda' => Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']),
+            'imagem_detalhe' => Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']),
+            'status' => 'Ativo',
+            'criado_em' => now(),
+            'criado_por' => $userId,
+        ]);
     }
 
     public function getEditData(string $id): array

@@ -18,6 +18,20 @@ class User extends Authenticatable
 
     const UPDATED_AT = 'atualizado_em';
 
+    protected $fillable = [
+        'id',
+        'nome',
+        'email',
+        'senha',
+        'acesso',
+        'status',
+        'ultimo_acesso',
+        'criado_em',
+        'atualizado_em',
+        'desativado_em',
+        'desativado_por',
+    ];
+
     protected $hidden = [
         'senha',
     ];

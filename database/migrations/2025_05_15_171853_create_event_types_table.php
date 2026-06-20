@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if (! Schema::hasTable('event_types')) {
             Schema::create('event_types', function (Blueprint $table) {
-                $table->uuid('id');
+                $table->uuid('id')->primary();
                 $table->string('nome', 100);
                 $table->text('descricao');
                 $table->integer('total_dias');
