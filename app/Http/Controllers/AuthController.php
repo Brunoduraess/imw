@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
@@ -33,18 +34,8 @@ class AuthController extends Controller
         return view('admin/forgot_password');
     }
 
-    public function forgot_password_submit(Request $request)
+    public function forgot_password_submit(ForgotPasswordRequest $request)
     {
-        $request->validate(
-            [
-                'email' => 'required|email',
-            ],
-            [
-                'email.required' => 'O email é obrigatório',
-                'email.email' => 'O email deve ser válido',
-            ]
-        );
-
         Password::sendResetLink($request->only('email'));
 
         return redirect()->route('send_confirm');
@@ -63,23 +54,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function update_password_submit(Request $request, $token)
+    public function update_password_submit(ResetPasswordRequest $request, $token)
     {
-        $request->validate(
-            [
-                'email' => ['required', 'email'],
-                'senha' => ['required', 'same:confirmaSenha', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
-                'confirmaSenha' => ['required'],
-            ],
-            [
-                'email.required' => 'O email é obrigatório',
-                'email.email' => 'O email deve ser válido',
-                'senha.required' => 'A senha é obrigatória',
-                'senha.same' => 'As senhas não coincidem',
-                'confirmaSenha.required' => 'A confirmação da senha é obrigatória',
-            ]
-        );
-
         $status = Password::reset(
             [
                 'email' => $request->input('email'),

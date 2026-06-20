@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Location;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -59,33 +60,8 @@ class EventController extends Controller
         return view('admin.createEvent', ['locations' => $locations, 'types' => $types]);
     }
 
-    public function createEventSubmit(Request $request)
+    public function createEventSubmit(StoreEventRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required|min:10',
-                'tipo' => 'required',
-                'descricao' => 'required|min:20',
-                'data' => 'required',
-                'horario' => 'required',
-                'local' => 'required',
-                'imagem_agenda' => 'required',
-                'imagem_detalhe' => 'required',
-            ],
-            [
-                'nome.required' => 'É necessário informar o nome do evento. Ex: Culto de adoração',
-                'nome.min' => 'O nome do evento deve possuir no mínimo 10 caracteres',
-                'tipo.required' => 'É necessário informar o tipo de evento',
-                'descricao.required' => 'É necessário informar uma descrição para o evento',
-                'descricao.min' => 'A descrição deve possuir no mínimo 20 caracteres',
-                'data.required' => 'É necessário informar a data do evento',
-                'horario.required' => 'É necessário informar o horário do evento',
-                'local.required' => 'É necessário informar o local do evento',
-                'imagem_agenda' => 'É necessário inserir a imagem que será exibida na agenda do site',
-                'imagem_detalhe' => 'É necessário inserir a imagem que será inserida nos detalhes do evento',
-            ]
-        );
-
         $id = (string) Str::uuid();
         $nome = $request->input('nome');
         $tipo = explode(' / ', $request->input('tipo'));
@@ -141,29 +117,8 @@ class EventController extends Controller
         return view('admin.editEvent', ['event' => $event, 'locations' => $locations, 'eventTypes' => $eventTypes]);
     }
 
-    public function editEventSubmit(Request $request)
+    public function editEventSubmit(UpdateEventRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required|min:10',
-                'tipo' => 'required',
-                'descricao' => 'required|min:20',
-                'data' => 'required',
-                'horario' => 'required',
-                'local' => 'required',
-            ],
-            [
-                'nome.required' => 'É necessário informar o nome do evento. Ex: Culto de adoração',
-                'nome.min' => 'O nome do evento deve possuir no mínimo 10 caracteres',
-                'tipo.required' => 'É necessário informar o tipo de evento',
-                'descricao.required' => 'É necessário informar uma descrição para o evento',
-                'descricao.min' => 'A descrição deve possuir no mínimo 20 caracteres',
-                'data.required' => 'É necessário informar a data do evento',
-                'horario.required' => 'É necessário informar o horário do evento',
-                'local.required' => 'É necessário informar o local do evento',
-            ]
-        );
-
         $id = $request->input('id');
         $nome = $request->input('nome');
         $tipo = explode(' / ', $request->input('tipo'));

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Main\ContactRequest;
 use App\Mail\contactMail;
 use App\Managers\FileManager;
 use App\Models\Event;
 use App\Models\Location;
 use DateTime;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -195,25 +195,8 @@ class MainController extends Controller
         return view('contact', compact('imagemContato'));
     }
 
-    public function contactSubmit(Request $request)
+    public function contactSubmit(ContactRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required|string|max:100',
-                'telefone' => 'required|string|max:15',
-                'email' => 'required|email|max:100',
-                'assunto' => 'required|string',
-                'mensagem' => 'required|string',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'telefone.required' => 'O campo telefone é obrigatório.',
-                'email.required' => 'O campo email é obrigatório.',
-                'assunto.required' => 'O campo assunto é obrigatório.',
-                'mensagem.required' => 'O campo mensagem é obrigatório.',
-            ]
-        );
-
         $nome = $request->input('nome');
         $telefone = $request->input('telefone');
         $telefoneTratado = Str::replace(['(', ')', '-', ' '], '', $telefone);

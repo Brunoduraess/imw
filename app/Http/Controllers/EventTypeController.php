@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventType\StoreEventTypeRequest;
+use App\Http\Requests\EventType\UpdateEventTypeRequest;
 use App\Models\EventType;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class EventTypeController extends Controller
@@ -20,23 +21,8 @@ class EventTypeController extends Controller
         return view('admin.createEventType');
     }
 
-    public function createEventTypeSubmit(Request $request)
+    public function createEventTypeSubmit(StoreEventTypeRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'descricao' => 'required',
-                'duracao' => 'required|min:1|max:5',
-            ],
-            [
-                'nome.required' => 'É obrigatório informar o nome do tipo de evento',
-                'descricao.required' => 'É obrigatório informar uma descrição para o tipo de evento',
-                'duracao.required' => 'Informe a duração do evento em dias',
-                'duracao.min' => 'O evento deve ter duração de, no mínimo, 1 dia.',
-                'duracao.max' => 'O evento deve ter duração de, no máximo, 10 dias.',
-            ]
-        );
-
         $eventType = new EventType;
         $eventType->id = (string) Str::uuid();
         $eventType->nome = $request->input('nome');
@@ -59,23 +45,8 @@ class EventTypeController extends Controller
         return view('admin.editEventType', ['eventType' => $eventType]);
     }
 
-    public function editEventTypeSubmit(Request $request)
+    public function editEventTypeSubmit(UpdateEventTypeRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'descricao' => 'required',
-                'duracao' => 'required|min:1|max:5',
-            ],
-            [
-                'nome.required' => 'É obrigatório informar o nome do tipo de evento',
-                'descricao.required' => 'É obrigatório informar uma descrição para o tipo de evento',
-                'duracao.required' => 'Informe a duração do evento em dias',
-                'duracao.min' => 'O evento deve ter duração de, no mínimo, 1 dia.',
-                'duracao.max' => 'O evento deve ter duração de, no máximo, 10 dias.',
-            ]
-        );
-
         EventType::where('id', '=', $request->input('id'))
             ->update([
                 'nome' => $request->input('nome'),

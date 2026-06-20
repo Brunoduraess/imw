@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Location\StoreLocationRequest;
+use App\Http\Requests\Location\UpdateLocationRequest;
 use App\Models\Location;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class LocationController extends Controller
@@ -27,32 +28,8 @@ class LocationController extends Controller
         return view('admin.createLocation');
     }
 
-    public function createLocationSubmit(Request $request)
+    public function createLocationSubmit(StoreLocationRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'rua' => 'required',
-                'numero' => 'required|integer',
-                'bairro' => 'required',
-                'cidade' => 'required',
-                'cep' => 'required',
-                'responsavel' => 'required',
-                'tel_responsavel' => 'required',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'rua.required' => 'O campo rua é obrigatório.',
-                'numero.required' => 'O campo número é obrigatório.',
-                'numero.integer' => 'O campo número deve ser um número inteiro.',
-                'bairro.required' => 'O campo bairro é obrigatório.',
-                'cidade.required' => 'O campo cidade é obrigatório.',
-                'cep.required' => 'O campo CEP é obrigatório.',
-                'responsavel.required' => 'O campo responsável é obrigatório.',
-                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.',
-            ]
-        );
-
         $location = new Location;
         $location->id = (string) Str::uuid();
         $location->nome = $request->input('nome');
@@ -75,32 +52,8 @@ class LocationController extends Controller
         return view('admin.editLocation', ['location' => $location]);
     }
 
-    public function editLocationSubmit(Request $request)
+    public function editLocationSubmit(UpdateLocationRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'rua' => 'required',
-                'numero' => 'required|integer',
-                'bairro' => 'required',
-                'cidade' => 'required',
-                'cep' => 'required',
-                'responsavel' => 'required',
-                'tel_responsavel' => 'required',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'rua.required' => 'O campo rua é obrigatório.',
-                'numero.required' => 'O campo número é obrigatório.',
-                'numero.integer' => 'O campo número deve ser um número inteiro.',
-                'bairro.required' => 'O campo bairro é obrigatório.',
-                'cidade.required' => 'O campo cidade é obrigatório.',
-                'cep.required' => 'O campo CEP é obrigatório.',
-                'responsavel.required' => 'O campo responsável é obrigatório.',
-                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.',
-            ]
-        );
-
         Location::where('id', '=', $request->input('id'))
             ->update([
                 'nome' => $request->input('nome'),

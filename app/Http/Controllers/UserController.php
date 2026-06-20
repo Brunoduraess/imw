@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -51,22 +52,8 @@ class UserController extends Controller
         return view('admin/newUser');
     }
 
-    public function createUser(Request $request)
+    public function createUser(StoreUserRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'acesso' => 'required',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'email.required' => 'O campo email é obrigatório.',
-                'email.email' => 'O campo email deve ser um endereço de email válido.',
-                'acesso.required' => 'O campo nível de acesso é obrigatório.',
-            ]
-        );
-
         $nome = $request->input('nome');
         $email = $request->input('email');
         $acesso = $request->input('acesso');
@@ -93,22 +80,8 @@ class UserController extends Controller
         return view('admin/editUser', ['user' => $user]);
     }
 
-    public function saveUserEdit(Request $request)
+    public function saveUserEdit(UpdateUserRequest $request)
     {
-        $request->validate(
-            [
-                'nome' => 'required',
-                'email' => 'required|email',
-                'acesso' => 'required',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'email.required' => 'O campo email é obrigatório.',
-                'email.email' => 'O campo email deve ser um endereço de email válido.',
-                'acesso.required' => 'O campo nível de acesso é obrigatório.',
-            ]
-        );
-
         User::where('id', '=', $request->input('id'))
             ->update([
                 'nome' => $request->input('nome'),
