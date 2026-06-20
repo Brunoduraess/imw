@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('tokens')) {
+        if (! Schema::hasTable('tokens')) {
             Schema::create('tokens', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->char('token', 36);

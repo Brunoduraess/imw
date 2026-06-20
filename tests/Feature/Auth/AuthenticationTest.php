@@ -15,6 +15,13 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_legacy_admin_urls_remain_available(): void
+    {
+        $this->get('/login')->assertOk();
+        $this->get('/users')->assertRedirect(route('login'));
+        $this->get('/eventsAdmin')->assertRedirect(route('login'));
+    }
+
     public function test_guest_is_redirected_from_admin_area(): void
     {
         $this->get(route('menu'))

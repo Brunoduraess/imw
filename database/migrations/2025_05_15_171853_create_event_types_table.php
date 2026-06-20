@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('event_types')) {
+        if (! Schema::hasTable('event_types')) {
             Schema::create('event_types', function (Blueprint $table) {
                 $table->uuid('id');
                 $table->string('nome', 100);
