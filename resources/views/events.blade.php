@@ -23,11 +23,11 @@
         <p class="periodo">Nessa semana</p>
         <section class="eventos">
             @foreach ($eventosSemanaAtual as $eventoSemanaAtual)
-                <a href="{{ route('event_detail', ['id' => $eventoSemanaAtual->id]) }}" class="card-evento">
+                <a href="{{ route('event_detail', ['id' => $eventoSemanaAtual['id']]) }}" class="card-evento">
                     <div>
-                        <img src="{{ asset('storage/' . $eventoSemanaAtual->imagem_agenda . '') }}" alt="">
-                        <p class="titulo-evento">{{ $eventoSemanaAtual->nome }}</p>
-                        <p class="data-evento">{{ $eventoSemanaAtual->data }}, {{ $eventoSemanaAtual->horario }} horas.</p>
+                        <img src="{{ asset('storage/' . $eventoSemanaAtual['imagem_agenda']) }}" alt="">
+                        <p class="titulo-evento">{{ $eventoSemanaAtual['nome'] }}</p>
+                        <p class="data-evento">{{ $eventoSemanaAtual['data'] }}, {{ $eventoSemanaAtual['horario'] }} horas.</p>
                     </div>
                 </a>
             @endforeach
@@ -35,11 +35,11 @@
         <p class="periodo">Próximas semanas</p>
         <section class="eventos">
             @foreach ($eventosProximaSemana as $eventoProximaSemana)
-                <a href="{{ route('event_detail', ['id' => $eventoProximaSemana->id]) }}" class="card-evento">
+                <a href="{{ route('event_detail', ['id' => $eventoProximaSemana['id']]) }}" class="card-evento">
                     <div>
-                        <img src="{{ asset('storage/' . $eventoProximaSemana->imagem_agenda . '') }}" alt="">
-                        <p class="titulo-evento">{{ $eventoProximaSemana->nome }}</p>
-                        <p class="data-evento">{{ $eventoProximaSemana->data }}, {{ $eventoProximaSemana->horario }} horas.
+                        <img src="{{ asset('storage/' . $eventoProximaSemana['imagem_agenda']) }}" alt="">
+                        <p class="titulo-evento">{{ $eventoProximaSemana['nome'] }}</p>
+                        <p class="data-evento">{{ $eventoProximaSemana['data'] }}, {{ $eventoProximaSemana['horario'] }} horas.
                         </p>
                     </div>
                 </a>
@@ -49,11 +49,11 @@
             <p class="periodo">Próximos meses</p>
             <section class="eventos">
                 @foreach ($eventosProximoMes as $eventoProximoMes)
-                    <a href="{{ route('event_detail', ['id' => $eventoProximoMes->id]) }}" class="card-evento">
+                    <a href="{{ route('event_detail', ['id' => $eventoProximoMes['id']]) }}" class="card-evento">
                         <div>
-                            <img src="{{ asset('storage/' . $eventoProximoMes->imagem_agenda . '') }}" alt="">
-                            <p class="titulo-evento">{{ $eventoProximoMes->nome }}</p>
-                            <p class="data-evento">{{ $eventoProximoMes->data }}, {{ $eventoProximoMes->horario }} horas.
+                            <img src="{{ asset('storage/' . $eventoProximoMes['imagem_agenda']) }}" alt="">
+                            <p class="titulo-evento">{{ $eventoProximoMes['nome'] }}</p>
+                            <p class="data-evento">{{ $eventoProximoMes['data'] }}, {{ $eventoProximoMes['horario'] }} horas.
                             </p>
                         </div>
                     </a>

@@ -53,8 +53,8 @@
                 <div class="lista">
                     @foreach ($lastAccess as $access)
                         <div class="resultado">
-                            <p class="status">⏰ {{ $access->nome }}</p>
-                            <p class="total">{{ $access->data_acesso }}</p>
+                            <p class="status">⏰ {{ $access['nome'] }}</p>
+                            <p class="total">{{ $access['data_acesso'] }}</p>
                         </div>
                         <hr>
                     @endforeach
@@ -81,28 +81,28 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->nome }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->acesso }}</td>
+                            <td>{{ $user['nome'] }}</td>
+                            <td>{{ $user['email'] }}</td>
+                            <td>{{ $user['acesso'] }}</td>
                             <td style="width: 100px">
-                                @if ($user->status == 'Ativo')
-                                    <p class="ativo">{{ $user->status }}</p>
+                                @if ($user['status'] == 'Ativo')
+                                    <p class="ativo">{{ $user['status'] }}</p>
                                 @else
-                                    <p class="inativo">{{ $user->status }}</p>
+                                    <p class="inativo">{{ $user['status'] }}</p>
                                 @endif
                             </td>
-                            <td>{{ $user->ultimo_acesso_formatado }}</td>
-                            <td>{{ $user->data_criacao }}</td>
+                            <td>{{ $user['ultimo_acesso'] }}</td>
+                            <td>{{ $user['criado_em'] }}</td>
                             <td style="white-space: nowrap;">
-                                @if ($user->status != 'Inativo')
-                                    <a href='{{ route('editUser', ['id' => $user->id]) }}'>
+                                @if ($user['status'] != 'Inativo')
+                                    <a href='{{ route('editUser', ['id' => $user['id']]) }}'>
                                         <button type="button" class="btn btn-success">Editar ✏️</button>
                                     </a>
-                                    <a href='{{ route('disableUser', ['id' => $user->id]) }}'>
+                                    <a href='{{ route('disableUser', ['id' => $user['id']]) }}'>
                                         <button type="button" class="btn btn-success">Desativar ⛔</button>
                                     </a>
                                 @else
-                                    <a href='{{ route('enableUser', ['id' => $user->id]) }}'>
+                                    <a href='{{ route('enableUser', ['id' => $user['id']]) }}'>
                                         <button type="button" class="btn btn-success">Ativar ✅</button>
                                     </a>
                                 @endif

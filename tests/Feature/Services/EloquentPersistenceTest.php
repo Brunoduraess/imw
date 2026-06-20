@@ -65,5 +65,12 @@ class EloquentPersistenceTest extends TestCase
         ]);
         Storage::disk('public')->assertExists($event->imagem_agenda);
         Storage::disk('public')->assertExists($event->imagem_detalhe);
+
+        $this->actingAs($user);
+        $this->get(route('users'))->assertOk()->assertSee('Usuário Service');
+        $this->get(route('eventsAdmin'))->assertOk()->assertSee('Evento de Teste');
+        $this->get(route('locations'))->assertOk()->assertSee('Rua Teste');
+        $this->get(route('events'))->assertOk();
+        $this->get(route('event_detail', $event->id))->assertOk()->assertSee('Evento de Teste');
     }
 }

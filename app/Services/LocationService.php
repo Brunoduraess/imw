@@ -2,23 +2,15 @@
 
 namespace App\Services;
 
+use App\Http\Resources\Admin\LocationResource;
 use App\Models\Location;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class LocationService
 {
-    public function allFormatted(): Collection
+    public function allFormatted(): array
     {
-        $locations = Location::orderBy('nome')->get();
-
-        foreach ($locations as $location) {
-            $location->endereco = $location->rua.', '.$location->numero.', '.$location->bairro.', '.$location->cidade;
-            $location->cep = preg_replace('/^(\d{5})(\d{3})$/', '$1-$2', $location->cep);
-            $location->tel_responsavel = preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $location->tel_responsavel);
-        }
-
-        return $locations;
+        return LocationResource::collection(Location::orderBy('nome')->get())->resolve();
     }
 
     public function create(array $data): Location

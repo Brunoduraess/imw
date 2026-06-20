@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Resources\Admin\LastAccessResource;
+use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -11,14 +13,7 @@ class UserService
 {
     public function getDashboardData(): array
     {
-        $users = User::orderBy('nome')->get();
-
-        foreach ($users as $user) {
-            $user->data_criacao = date('d/m/Y H:i', strtotime($user->criado_em));
-            $user->ultimo_acesso_formatado = $user->ultimo_acesso
-                ? $user->ultimo_acesso->format('d/m/Y H:i')
-                : '-';
-        }
+        $users = UserResource::collection(User::orderBy('nome')->get())->resolve();
 
         $userPerStatus = User::selectRaw('count(id) as total, status')
             ->groupBy('status')
@@ -28,16 +23,12 @@ class UserService
             ->groupBy('acesso')
             ->get();
 
-        $lastAccess = User::where('ultimo_acesso', '!=', '')
-            ->orderBy('ultimo_acesso', 'desc')
-            ->limit(3)
-            ->get();
-
-        foreach ($lastAccess as $access) {
-            $nameParts = explode(' ', $access->nome);
-            $access->nome = $nameParts[0].' '.end($nameParts);
-            $access->data_acesso = date('d/m/Y H:i', strtotime($access->ultimo_acesso));
-        }
+        $lastAccess = LastAccessResource::collection(
+            User::whereNotNull('ultimo_acesso')
+                ->orderBy('ultimo_acesso', 'desc')
+                ->limit(3)
+                ->get()
+        )->resolve();
 
         return compact('users', 'userPerStatus', 'userPerProfile', 'lastAccess');
     }

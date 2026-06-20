@@ -41,8 +41,8 @@
                 <div class="lista">
                     @foreach ($eventsPerType as $type)
                         <div class="resultado">
-                            <p class="status">*️⃣ {{ $type->tipo }}</p>
-                            <p class="total">{{ $type->total }}</p>
+                            <p class="status">*️⃣ {{ $type['tipo'] }}</p>
+                            <p class="total">{{ $type['total'] }}</p>
                         </div>
                         <hr>
                     @endforeach
@@ -87,31 +87,31 @@
                 <tbody>
                     @foreach ($events as $event)
                         <tr>
-                            <td>{{ $event->nome }}</td>
-                            <td>{{ $event->descricao }}</td>
-                            <td>{{ $event->tipo }}</td>
-                            <td>{{ $event->data }}</td>
-                            <td>{{ $event->horario }}</td>
-                            <td>{{ $event->inscricao }}</td>
+                            <td>{{ $event['nome'] }}</td>
+                            <td>{{ $event['descricao'] }}</td>
+                            <td>{{ $event['tipo'] }}</td>
+                            <td>{{ $event['data'] }}</td>
+                            <td>{{ $event['horario'] }}</td>
+                            <td>{{ $event['inscricao'] }}</td>
                             <td style="width: 100px">
-                                @if ($event->status == 'Ativo')
-                                    <p class="ativo">{{ $event->status }}</p>
+                                @if ($event['status'] == 'Ativo')
+                                    <p class="ativo">{{ $event['status'] }}</p>
                                 @else
-                                    <p class="inativo">{{ $event->status }}</p>
+                                    <p class="inativo">{{ $event['status'] }}</p>
                                 @endif
                             </td>
-                            <td>{{ $event->criado_por }}</td>
-                            <td>{{ $event->data_criacao }}</td>
+                            <td>{{ $event['criado_por'] }}</td>
+                            <td>{{ $event['criado_em'] }}</td>
                             <td style="white-space: nowrap;">
-                                @if ($event->status != 'Inativo')
-                                    <a href='{{ route('editEvent', ['id' => $event->id]) }}'>
+                                @if ($event['status'] != 'Inativo')
+                                    <a href='{{ route('editEvent', ['id' => $event['id']]) }}'>
                                         <button type="button" class="btn btn-success">Editar ✏️</button>
                                     </a>
-                                    <a href='{{ route('disableEvent', ['id' => $event->id]) }}'>
+                                    <a href='{{ route('disableEvent', ['id' => $event['id']]) }}'>
                                         <button type="button" class="btn btn-success">Desativar ⛔</button>
                                     </a>
                                 @else
-                                    <a href='{{ route('enableEvent', ['id' => $event->id]) }}'>
+                                    <a href='{{ route('enableEvent', ['id' => $event['id']]) }}'>
                                         <button type="button" class="btn btn-success">Ativar ✅</button>
                                     </a>
                                 @endif

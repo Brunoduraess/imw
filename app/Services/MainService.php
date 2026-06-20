@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use App\Http\Resources\Main\EventResource;
 use App\Mail\ContactMail;
 use App\Managers\FileManager;
 use App\Models\Event;
 use App\Models\Location;
 use DateTime;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -88,14 +88,10 @@ class MainService
             ->whereMonth('data', $nextMonth->format('m'))
             ->get();
 
-        $this->formatEvents($currentWeekEvents);
-        $this->formatEvents($nextWeekEvents);
-        $this->formatEvents($nextMonthEvents);
-
         return [
-            'eventosSemanaAtual' => $currentWeekEvents,
-            'eventosProximaSemana' => $nextWeekEvents,
-            'eventosProximoMes' => $nextMonthEvents,
+            'eventosSemanaAtual' => EventResource::collection($currentWeekEvents)->resolve(),
+            'eventosProximaSemana' => EventResource::collection($nextWeekEvents)->resolve(),
+            'eventosProximoMes' => EventResource::collection($nextMonthEvents)->resolve(),
         ];
     }
 
@@ -103,10 +99,9 @@ class MainService
     {
         $event = Event::find($id);
         $location = Location::find($event->local_id);
-        $this->formatEvent($event);
 
         return [
-            'evento' => $event,
+            'evento' => EventResource::make($event)->resolve(),
             'local' => $location,
         ];
     }
@@ -129,37 +124,5 @@ class MainService
                 $data['assunto'],
                 $data['mensagem'],
             ));
-    }
-
-    private function formatEvents(Collection $events): void
-    {
-        foreach ($events as $event) {
-            $this->formatEvent($event);
-        }
-    }
-
-    private function formatEvent(Event $event): void
-    {
-        $date = new DateTime($event->data);
-        $event->data = $date->format('d').' de '.$this->monthName((int) $date->format('m'));
-        $event->horario = (new DateTime($event->horario))->format('H:i');
-    }
-
-    private function monthName(int $month): string
-    {
-        return [
-            1 => 'Janeiro',
-            2 => 'Fevereiro',
-            3 => 'Março',
-            4 => 'Abril',
-            5 => 'Maio',
-            6 => 'Junho',
-            7 => 'Julho',
-            8 => 'Agosto',
-            9 => 'Setembro',
-            10 => 'Outubro',
-            11 => 'Novembro',
-            12 => 'Dezembro',
-        ][$month];
     }
 }

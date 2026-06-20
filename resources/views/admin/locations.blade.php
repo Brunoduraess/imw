@@ -36,13 +36,13 @@
                 <tbody>
                     @foreach ($locations as $location)
                         <tr>
-                            <td>{{ $location->nome }}</td>
-                            <td>{{ $location->endereco }}</td>
-                            <td>{{ $location->cep }}</td>
-                            <td>{{ $location->responsavel }}</td>
-                            <td>{{ $location->tel_responsavel }}</td>
+                            <td>{{ $location['nome'] }}</td>
+                            <td>{{ $location['endereco'] }}</td>
+                            <td>{{ $location['cep'] }}</td>
+                            <td>{{ $location['responsavel'] }}</td>
+                            <td>{{ $location['tel_responsavel'] }}</td>
                             <td style="white-space: nowrap; width: 200px;">
-                                <a href='{{ route('editLocation', ['id' => $location->id]) }}'>
+                                <a href='{{ route('editLocation', ['id' => $location['id']]) }}'>
                                     <button type="button" class="btn btn-success">Editar ✏️</button>
                                 </a>
                             </td>

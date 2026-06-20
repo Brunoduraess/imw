@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    <title>{{ $evento->nome }}</title>
+    <title>{{ $evento['nome'] }}</title>
 @endsection
 
 @section('content')
@@ -20,13 +20,13 @@
                 </a>
             </div>
             <div class="pagina">
-                <a href="{{ route('home') }}">Menu</a> / <a href="{{ route('events') }}">Agenda </a> / {{ $evento->nome }}
+                <a href="{{ route('home') }}">Menu</a> / <a href="{{ route('events') }}">Agenda </a> / {{ $evento['nome'] }}
             </div>
         </div>
-        <img class="banner" src="{{ asset('storage/' . $evento->imagem_detalhe . '') }}" alt="">
-        <p class="nome_evento">{{ $evento->nome }}</p>
-        <p class="horario_evento">{{ $evento->data }}, {{ $evento->horario }} horas.</p>
-        <p class="descricao_evento">{{ $evento->descricao }}
+        <img class="banner" src="{{ asset('storage/' . $evento['imagem_detalhe']) }}" alt="">
+        <p class="nome_evento">{{ $evento['nome'] }}</p>
+        <p class="horario_evento">{{ $evento['data'] }}, {{ $evento['horario'] }} horas.</p>
+        <p class="descricao_evento">{{ $evento['descricao'] }}
         <p>
         <div class="local_evento">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-fill"
@@ -36,7 +36,7 @@
             </svg>
             <p>{{ $local->rua . ', ' . $local->numero . ', ' . $local->bairro . ', ' . $local->cidade . '.' }}</p>
         </div>
-        @if ($evento->inscricao)
+        @if ($evento['inscricao'])
             <div class="valor_evento">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash"
                     viewBox="0 0 16 16">
@@ -44,7 +44,7 @@
                     <path
                         d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
                 </svg>
-                <p>Inscrição: R$ {{ $evento->inscricao }}.</p>
+                <p>Inscrição: R$ {{ $evento['inscricao'] }}.</p>
             </div>
         @endif
 
