@@ -14,12 +14,16 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['required'],
             'nome' => ['required', 'min:10'],
             'tipo' => ['required'],
             'descricao' => ['required', 'min:20'],
             'data' => ['required'],
             'horario' => ['required'],
             'local' => ['required'],
+            'imagem_agenda' => ['nullable'],
+            'imagem_detalhe' => ['nullable'],
+            'valor' => ['nullable'],
         ];
     }
 

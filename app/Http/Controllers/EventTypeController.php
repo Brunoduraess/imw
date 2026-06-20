@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EventType\StoreEventTypeRequest;
 use App\Http\Requests\EventType\UpdateEventTypeRequest;
-use App\Models\EventType;
-use Illuminate\Support\Str;
+use App\Services\EventTypeService;
 
 class EventTypeController extends Controller
 {
+    public function __construct(
+        private EventTypeService $eventTypeService
+    ) {}
+
     public function eventsType()
     {
-        $eventsType = EventType::orderBy('nome')->get();
-
-        return view('admin.eventsType', ['eventsType' => $eventsType]);
+        return view('admin.eventsType', ['eventsType' => $this->eventTypeService->all()]);
     }
 
     public function createEventType()
@@ -23,20 +24,14 @@ class EventTypeController extends Controller
 
     public function createEventTypeSubmit(StoreEventTypeRequest $request)
     {
-        $eventType = new EventType;
-        $eventType->id = (string) Str::uuid();
-        $eventType->nome = $request->input('nome');
-        $eventType->descricao = $request->input('descricao');
-        $eventType->total_dias = $request->input('duracao');
-        $eventType->save();
+        $this->eventTypeService->create($request->validated());
 
         return redirect()->route('eventsType')->with('success', 'Tipo de evento cadastrado com sucesso!');
-
     }
 
-    public function editEventType($id)
+    public function editEventType(string $id)
     {
-        $eventType = EventType::find($id);
+        $eventType = $this->eventTypeService->find($id);
 
         if (! $eventType) {
             return redirect()->route('eventsType')->with('error', 'Tipo de evento não encontrado.');
@@ -47,14 +42,8 @@ class EventTypeController extends Controller
 
     public function editEventTypeSubmit(UpdateEventTypeRequest $request)
     {
-        EventType::where('id', '=', $request->input('id'))
-            ->update([
-                'nome' => $request->input('nome'),
-                'descricao' => $request->input('descricao'),
-                'total_dias' => $request->input('duracao'),
-            ]);
+        $this->eventTypeService->update($request->validated());
 
         return redirect()->route('eventsType')->with('success', 'Tipo de evento editado com sucesso!');
-
     }
 }

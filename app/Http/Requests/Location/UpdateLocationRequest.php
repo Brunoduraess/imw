@@ -14,6 +14,7 @@ class UpdateLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['required'],
             'nome' => ['required'],
             'rua' => ['required'],
             'numero' => ['required', 'integer'],

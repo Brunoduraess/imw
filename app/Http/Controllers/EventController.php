@@ -4,200 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Event\StoreEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
-use App\Models\Event;
-use App\Models\EventType;
-use App\Models\Location;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use App\Services\EventService;
 
 class EventController extends Controller
 {
+    public function __construct(
+        private EventService $eventService
+    ) {}
+
     public function eventsAdmin()
     {
-        $events = Event::with(['user', 'eventType'])->get();
-
-        foreach ($events as $event) {
-            $event->criado_por = $event->user->nome;
-            $event->tipo = $event->eventType->nome;
-
-            $quebraNome = explode(' ', $event->criado_por);
-            $event->criado_por = $quebraNome[0].' '.end($quebraNome);
-            $event->inscricao = isset($event->inscricao) ? 'R$'.number_format($event->inscricao, 2, ',', '.') : '-';
-            $event->data = date('d/m/Y', strtotime($event->data));
-            $event->horario = date('H:i', strtotime($event->horario));
-            $event->data_criacao = date('d/m/Y', strtotime($event->criado_em));
-        }
-
-        $eventsPerStatus = Event::selectRaw('count(id) as total, status')
-            ->groupBy('status')
-            ->get();
-
-        $eventsPerType = Event::selectRaw('count(id) as total, tipo')
-            ->groupBy('tipo')
-            ->orderBy('total', 'desc')
-            ->get();
-
-        foreach ($eventsPerType as $eventPerType) {
-            $eventPerType->tipo = $eventPerType->eventType->nome;
-        }
-
-        $eventPerLocation = Event::selectRaw('locations.nome as nome, count(events.id) as total')
-            ->join('locations', 'events.local_id', '=', 'locations.id')
-            ->groupBy('locations.id', 'locations.nome')
-            ->orderBy('locations.id')
-            ->get();
-
-        return view('admin.events', ['events' => $events, 'eventsPerStatus' => $eventsPerStatus, 'eventsPerType' => $eventsPerType, 'eventPerLocation' => $eventPerLocation]);
-
+        return view('admin.events', $this->eventService->getDashboardData());
     }
 
     public function createEvent()
     {
-        $locations = Location::orderBy('nome')->get();
-        $types = EventType::orderBy('nome')->get();
-
-        return view('admin.createEvent', ['locations' => $locations, 'types' => $types]);
+        return view('admin.createEvent', $this->eventService->getCreateData());
     }
 
     public function createEventSubmit(StoreEventRequest $request)
     {
-        $id = (string) Str::uuid();
-        $nome = $request->input('nome');
-        $tipo = explode(' / ', $request->input('tipo'));
-        $id_tipo = $tipo[0];
-        $descricao = $request->input('descricao');
-        $data = $request->input('data');
-        $horario = $request->input('horario');
-        $local = $request->input('local');
-        $inscricao = $request->input('valor');
-        $inscricao = isset($inscricao) ? $this->formataValor($inscricao) : null;
-
-        $imagem_agenda = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $request->file('imagem_agenda'));
-        $imagem_detalhe = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $request->file('imagem_detalhe'));
-
-        $event = new Event;
-        $event->id = $id;
-        $event->nome = $nome;
-        $event->descricao = $descricao;
-        $event->tipo = $id_tipo;
-        $event->data = $data;
-        $event->horario = $horario;
-        $event->local_id = $local;
-        $event->inscricao = $inscricao;
-        $event->imagem_agenda = $imagem_agenda;
-        $event->imagem_detalhe = $imagem_detalhe;
-        $event->criado_em = Carbon::now();
-        $event->criado_por = auth()->id();
-        $event->save();
+        $this->eventService->create($request->validated(), (string) auth()->id());
 
         return redirect()->route('eventsAdmin');
     }
 
-    private function formataValor($valor)
+    public function editEvent(string $id)
     {
-        $valor = str_replace('.', '', $valor);
-        $valorFormatado = str_replace(',', '.', $valor);
-
-        return $valorFormatado;
-    }
-
-    public function editEvent($id)
-    {
-        $event = Event::find($id);
-
-        $locations = Location::orderBy('nome')->get();
-
-        $eventTypes = EventType::orderBy('nome')->get();
-
-        foreach ($locations as $location) {
-            $location->id = (string) $location->id;
-        }
-
-        return view('admin.editEvent', ['event' => $event, 'locations' => $locations, 'eventTypes' => $eventTypes]);
+        return view('admin.editEvent', $this->eventService->getEditData($id));
     }
 
     public function editEventSubmit(UpdateEventRequest $request)
     {
-        $id = $request->input('id');
-        $nome = $request->input('nome');
-        $tipo = explode(' / ', $request->input('tipo'));
-        $id_tipo = $tipo[0];
-        $descricao = $request->input('descricao');
-        $data = $request->input('data');
-        $horario = $request->input('horario');
-        $local = $request->input('local');
-        $inscricao = $request->input('valor');
-        $inscricao = isset($inscricao) ? $this->formataValor($inscricao) : null;
-
-        if ($request->file('imagem_agenda')) {
-            $imagem_agenda = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $request->file('imagem_agenda'));
-        } else {
-            $imagem_agenda = null;
-        }
-
-        if ($request->file('imagem_detalhe')) {
-            $imagem_detalhe = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $request->file('imagem_detalhe'));
-        } else {
-            $imagem_detalhe = null;
-        }
-
-        Event::where('id', '=', $request->input('id'))
-            ->update([
-                'id' => $id,
-                'nome' => $nome,
-                'descricao' => $descricao,
-                'tipo' => $id_tipo,
-                'data' => $data,
-                'horario' => $horario,
-                'local_id' => $local,
-                'inscricao' => $inscricao,
-                'atualizado_em' => Carbon::now(),
-                'atualizado_por' => auth()->id(),
-            ]);
-
-        if ($imagem_agenda) {
-            Event::where('id', '=', $request->input('id'))
-                ->update([
-
-                    'imagem_agenda' => $imagem_agenda,
-                    'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => auth()->id(),
-                ]);
-        }
-
-        if ($imagem_detalhe) {
-            Event::where('id', '=', $request->input('id'))
-                ->update([
-                    'imagem_detalhe' => $imagem_detalhe,
-                    'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => auth()->id(),
-                ]);
-        }
+        $this->eventService->update($request->validated(), (string) auth()->id());
 
         return redirect()->route('eventsAdmin');
     }
 
-    public function disableEvent($id)
+    public function disableEvent(string $id)
     {
-        Event::where('id', '=', $id)
-            ->update([
-                'status' => 'Inativo',
-                'desativado_por' => auth()->id(),
-                'desativado_em' => Carbon::now(),
-            ]);
+        $this->eventService->disable($id, (string) auth()->id());
 
         return redirect()->route('eventsAdmin');
     }
 
-    public function enableEvent($id)
+    public function enableEvent(string $id)
     {
-        Event::where('id', '=', $id)
-            ->update([
-                'status' => 'Ativo',
-                'desativado_por' => null,
-                'desativado_em' => null,
-            ]);
+        $this->eventService->enable($id);
 
         return redirect()->route('eventsAdmin');
     }

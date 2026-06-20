@@ -14,6 +14,7 @@ class UpdateEventTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['required'],
             'nome' => ['required'],
             'descricao' => ['required'],
             'duracao' => ['required', 'min:1', 'max:5'],

@@ -22,6 +22,7 @@ class StoreEventRequest extends FormRequest
             'local' => ['required'],
             'imagem_agenda' => ['required'],
             'imagem_detalhe' => ['required'],
+            'valor' => ['nullable'],
         ];
     }
 

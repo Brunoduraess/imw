@@ -91,7 +91,7 @@
                                     <p class="inativo">{{ $user->status }}</p>
                                 @endif
                             </td>
-                            <td>{{ $user->ultimo_acesso }}</td>
+                            <td>{{ $user->ultimo_acesso_formatado }}</td>
                             <td>{{ $user->data_criacao }}</td>
                             <td style="white-space: nowrap;">
                                 @if ($user->status != 'Inativo')

@@ -67,6 +67,19 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_authenticated_user_can_access_service_backed_admin_pages(): void
+    {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $this->get(route('menu'))->assertOk();
+        $this->get(route('users'))->assertOk();
+        $this->get(route('eventsAdmin'))->assertOk();
+        $this->get(route('eventsType'))->assertOk();
+        $this->get(route('locations'))->assertOk();
+    }
+
     public function test_user_can_request_a_password_reset_link(): void
     {
         Notification::fake();
