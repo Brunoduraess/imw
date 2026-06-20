@@ -24,7 +24,7 @@ class FileManager
 
     public function url(?string $path): ?string
     {
-        if (!$path) {
+        if (! $path) {
             return null;
         }
 
@@ -33,7 +33,7 @@ class FileManager
 
     public function delete(?string $path): bool
     {
-        if (!$path) {
+        if (! $path) {
             return false;
         }
 
@@ -42,7 +42,7 @@ class FileManager
 
     public function exists(?string $path): bool
     {
-        if (!$path) {
+        if (! $path) {
             return false;
         }
 
@@ -66,6 +66,6 @@ class FileManager
 
     protected function generateFilename(UploadedFile $file): string
     {
-        return Str::uuid() . '.' . $file->extension();
+        return Str::uuid().'.'.$file->extension();
     }
 }

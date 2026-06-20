@@ -10,8 +10,9 @@ class Logado
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('user')) {
+        if (! session()->has('user')) {
             session()->flush();
+
             return redirect()->to('/login');
         }
 

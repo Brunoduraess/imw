@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -25,7 +24,7 @@ class LocationTableSeeder extends Seeder
                 'numero' => 75,
                 'bairro' => 'Ponte Alta',
                 'cidade' => 'Volta Redonda',
-                'complemento' => 'Igreja'
+                'complemento' => 'Igreja',
             ]
         );
     }

@@ -8,7 +8,8 @@ class AdminController extends Controller
 {
     public function __construct(
         private FileManager $fileManager
-    ){}
+    ) {}
+
     public function menu()
     {
         $logoEventos = $this->fileManager->url('admin/detalhe_evento.png');
@@ -17,5 +18,4 @@ class AdminController extends Controller
 
         return view('admin/menu', compact('logoEventos', 'logoProjetos', 'logoUsuarios'));
     }
-
 }

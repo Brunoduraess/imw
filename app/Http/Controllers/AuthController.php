@@ -20,24 +20,24 @@ class AuthController extends Controller
         $request->validate(
             [
                 'email' => 'required',
-                'senha' => 'required'
+                'senha' => 'required',
             ],
             [
                 'email.required' => 'O email é obrigatório',
-                'senha.required' => 'A senha é obrigatória'
+                'senha.required' => 'A senha é obrigatória',
             ]
         );
 
         $email = $request->input('email');
         $senha = $request->input('senha');
 
-        $user = User::where('email', $email)->where('desativado_em', NULL)->first();
+        $user = User::where('email', $email)->where('desativado_em', null)->first();
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->withInput()->with('loginError', 'Email ou senha incorretos');
         }
 
-        if (!password_verify($senha, $user->senha)) {
+        if (! password_verify($senha, $user->senha)) {
             return redirect()->back()->withInput()->with('loginError', 'Email ou senha incorretos');
         }
 
@@ -50,8 +50,8 @@ class AuthController extends Controller
             'user' => [
                 'id' => $user->id,
                 'nome' => $user->nome,
-                'acesso' => $user->acesso
-            ]
+                'acesso' => $user->acesso,
+            ],
         ]);
 
         return redirect()->to('/menu');
@@ -66,18 +66,18 @@ class AuthController extends Controller
     {
         $request->validate(
             [
-                'email' => 'required|email'
+                'email' => 'required|email',
             ],
             [
                 'email.required' => 'O email é obrigatório',
-                'email.email' => 'O email deve ser válido'
+                'email.email' => 'O email deve ser válido',
             ]
         );
 
         $email = $request->input('email');
         $user = User::where('email', $email)->first();
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->withInput()->with('error', 'Email não encontrado');
         }
 
@@ -88,12 +88,12 @@ class AuthController extends Controller
             'token' => $token,
             'email' => $email,
             'data_criacao' => date('Y-m-d'),
-            'data_expiracao' => date('Y-m-d h:i:s', strtotime('+1 day'))
+            'data_expiracao' => date('Y-m-d h:i:s', strtotime('+1 day')),
         ]);
 
         $token->save();
 
-        $link = url('/update_password/' . $token->token);
+        $link = url('/update_password/'.$token->token);
 
         Mail::to($email)->send(new forgotPassMail($link));
 
@@ -109,7 +109,7 @@ class AuthController extends Controller
     {
         $tokenRecord = Token::where('token', $token)->first();
 
-        if (!$tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
+        if (! $tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
             return redirect()->route('login');
         }
 
@@ -121,11 +121,11 @@ class AuthController extends Controller
         $request->validate(
             [
                 'senha' => 'required',
-                'confirmaSenha' => 'required'
+                'confirmaSenha' => 'required',
             ],
             [
                 'senha.required' => 'A senha é obrigatória',
-                'confirmaSenha.required' => 'A confirmação da senha é obrigatória'
+                'confirmaSenha.required' => 'A confirmação da senha é obrigatória',
             ]
         );
 
@@ -136,21 +136,21 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', 'As senhas não coincidem');
         }
 
-        if (!preg_match('/[A-Z]/', $senha)) {
+        if (! preg_match('/[A-Z]/', $senha)) {
             return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos uma letra maiúscula');
         }
 
-        if (!preg_match('/[0-9]/', $senha)) {
+        if (! preg_match('/[0-9]/', $senha)) {
             return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um número');
         }
 
-        if (!preg_match('/[\W_]/', $senha)) {
+        if (! preg_match('/[\W_]/', $senha)) {
             return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um caractere especial');
         }
 
         $tokenRecord = Token::where('token', $token)->first();
 
-        if (!$tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
+        if (! $tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
             return redirect()->route('login');
         }
 
@@ -166,6 +166,7 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
+
         return redirect()->to('/login');
     }
 }

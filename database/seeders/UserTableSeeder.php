@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
                     'senha' => bcrypt('teste'),
                     'acesso' => 'Administrador',
                     'status' => 'Ativo',
-                    'ultimo_acesso' => NULL,
+                    'ultimo_acesso' => null,
                     'criado_em' => date('Y-m-d H:i:s'),
                 ],
             ]

@@ -13,7 +13,7 @@ class LocationController extends Controller
         $locations = Location::orderBy('nome')->get();
 
         foreach ($locations as $location) {
-            $location->endereco = $location->rua . ', ' . $location->numero . ', ' . $location->bairro . ', ' . $location->cidade;
+            $location->endereco = $location->rua.', '.$location->numero.', '.$location->bairro.', '.$location->cidade;
             $location->cep = preg_replace('/^(\d{5})(\d{3})$/', '$1-$2', $location->cep);
             $location->tel_responsavel = preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $location->tel_responsavel);
         }
@@ -38,7 +38,7 @@ class LocationController extends Controller
                 'cidade' => 'required',
                 'cep' => 'required',
                 'responsavel' => 'required',
-                'tel_responsavel' => 'required'
+                'tel_responsavel' => 'required',
             ],
             [
                 'nome.required' => 'O campo nome é obrigatório.',
@@ -49,11 +49,11 @@ class LocationController extends Controller
                 'cidade.required' => 'O campo cidade é obrigatório.',
                 'cep.required' => 'O campo CEP é obrigatório.',
                 'responsavel.required' => 'O campo responsável é obrigatório.',
-                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.'
+                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.',
             ]
         );
 
-        $location = new Location();
+        $location = new Location;
         $location->id = (string) Str::uuid();
         $location->nome = $request->input('nome');
         $location->rua = $request->input('rua');
@@ -86,7 +86,7 @@ class LocationController extends Controller
                 'cidade' => 'required',
                 'cep' => 'required',
                 'responsavel' => 'required',
-                'tel_responsavel' => 'required'
+                'tel_responsavel' => 'required',
             ],
             [
                 'nome.required' => 'O campo nome é obrigatório.',
@@ -97,7 +97,7 @@ class LocationController extends Controller
                 'cidade.required' => 'O campo cidade é obrigatório.',
                 'cep.required' => 'O campo CEP é obrigatório.',
                 'responsavel.required' => 'O campo responsável é obrigatório.',
-                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.'
+                'tel_responsavel.required' => 'O campo telefone do responsável é obrigatório.',
             ]
         );
 
@@ -110,9 +110,9 @@ class LocationController extends Controller
                 'cidade' => $request->input('cidade'),
                 'cep' => str_replace('-', '', $request->input('cep')),
                 'responsavel' => $request->input('responsavel'),
-                'tel_responsavel' => str_replace(['-', '(', ')', ' ', '.'], '', $request->input('tel_responsavel'))
+                'tel_responsavel' => str_replace(['-', '(', ')', ' ', '.'], '', $request->input('tel_responsavel')),
             ]);
 
-        return redirect()->route('locations')->with('success', "Local editado com sucesso!");
+        return redirect()->route('locations')->with('success', 'Local editado com sucesso!');
     }
 }

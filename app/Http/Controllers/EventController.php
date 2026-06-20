@@ -9,7 +9,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use function Laravel\Prompts\alert;
 
 class EventController extends Controller
 {
@@ -17,14 +16,13 @@ class EventController extends Controller
     {
         $events = Event::with(['user', 'eventType'])->get();
 
-
         foreach ($events as $event) {
             $event->criado_por = $event->user->nome;
             $event->tipo = $event->eventType->nome;
 
             $quebraNome = explode(' ', $event->criado_por);
-            $event->criado_por = $quebraNome[0] . " " . end($quebraNome);
-            $event->inscricao = isset($event->inscricao) ? 'R$' . number_format($event->inscricao, 2, ',', '.') : '-';
+            $event->criado_por = $quebraNome[0].' '.end($quebraNome);
+            $event->inscricao = isset($event->inscricao) ? 'R$'.number_format($event->inscricao, 2, ',', '.') : '-';
             $event->data = date('d/m/Y', strtotime($event->data));
             $event->horario = date('H:i', strtotime($event->horario));
             $event->data_criacao = date('d/m/Y', strtotime($event->criado_em));
@@ -72,7 +70,7 @@ class EventController extends Controller
                 'horario' => 'required',
                 'local' => 'required',
                 'imagem_agenda' => 'required',
-                'imagem_detalhe' => 'required'
+                'imagem_detalhe' => 'required',
             ],
             [
                 'nome.required' => 'É necessário informar o nome do evento. Ex: Culto de adoração',
@@ -84,7 +82,7 @@ class EventController extends Controller
                 'horario.required' => 'É necessário informar o horário do evento',
                 'local.required' => 'É necessário informar o local do evento',
                 'imagem_agenda' => 'É necessário inserir a imagem que será exibida na agenda do site',
-                'imagem_detalhe' => 'É necessário inserir a imagem que será inserida nos detalhes do evento'
+                'imagem_detalhe' => 'É necessário inserir a imagem que será inserida nos detalhes do evento',
             ]
         );
 
@@ -102,7 +100,7 @@ class EventController extends Controller
         $imagem_agenda = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $request->file('imagem_agenda'));
         $imagem_detalhe = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $request->file('imagem_detalhe'));
 
-        $event = new Event();
+        $event = new Event;
         $event->id = $id;
         $event->nome = $nome;
         $event->descricao = $descricao;
@@ -116,7 +114,6 @@ class EventController extends Controller
         $event->criado_em = Carbon::now();
         $event->criado_por = session('user.id');
         $event->save();
-
 
         return redirect()->route('eventsAdmin');
     }
@@ -153,7 +150,7 @@ class EventController extends Controller
                 'descricao' => 'required|min:20',
                 'data' => 'required',
                 'horario' => 'required',
-                'local' => 'required'
+                'local' => 'required',
             ],
             [
                 'nome.required' => 'É necessário informar o nome do evento. Ex: Culto de adoração',
@@ -163,7 +160,7 @@ class EventController extends Controller
                 'descricao.min' => 'A descrição deve possuir no mínimo 20 caracteres',
                 'data.required' => 'É necessário informar a data do evento',
                 'horario.required' => 'É necessário informar o horário do evento',
-                'local.required' => 'É necessário informar o local do evento'
+                'local.required' => 'É necessário informar o local do evento',
             ]
         );
 
@@ -201,7 +198,7 @@ class EventController extends Controller
                 'local_id' => $local,
                 'inscricao' => $inscricao,
                 'atualizado_em' => Carbon::now(),
-                'atualizado_por' => session('user.id')
+                'atualizado_por' => session('user.id'),
             ]);
 
         if ($imagem_agenda) {
@@ -210,7 +207,7 @@ class EventController extends Controller
 
                     'imagem_agenda' => $imagem_agenda,
                     'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => session('user.id')
+                    'atualizado_por' => session('user.id'),
                 ]);
         }
 
@@ -219,10 +216,9 @@ class EventController extends Controller
                 ->update([
                     'imagem_detalhe' => $imagem_detalhe,
                     'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => session('user.id')
+                    'atualizado_por' => session('user.id'),
                 ]);
         }
-
 
         return redirect()->route('eventsAdmin');
     }
@@ -233,7 +229,7 @@ class EventController extends Controller
             ->update([
                 'status' => 'Inativo',
                 'desativado_por' => session('user.id'),
-                'desativado_em' => Carbon::now()
+                'desativado_em' => Carbon::now(),
             ]);
 
         return redirect()->route('eventsAdmin');
@@ -245,7 +241,7 @@ class EventController extends Controller
             ->update([
                 'status' => 'Ativo',
                 'desativado_por' => null,
-                'desativado_em' => null
+                'desativado_em' => null,
             ]);
 
         return redirect()->route('eventsAdmin');

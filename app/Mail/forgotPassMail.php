@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -13,12 +12,10 @@ class forgotPassMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-
     public function __construct($link)
     {
         $this->link = $link;
     }
-
 
     public function envelope(): Envelope
     {
@@ -26,7 +23,6 @@ class forgotPassMail extends Mailable
             subject: 'Redefinição de senha da sua conta',
         );
     }
-
 
     public function content(): Content
     {

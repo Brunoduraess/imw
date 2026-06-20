@@ -13,29 +13,31 @@ use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
-    public function __construct (
+    public function __construct(
         private FileManager $fileManager
-    ){}
+    ) {}
 
     public function home()
     {
         $imagens = [
-            'home_1'        => $this->fileManager->url('configuracoes/home_1.svg'),
+            'home_1' => $this->fileManager->url('configuracoes/home_1.svg'),
             'home_1_mobile' => $this->fileManager->url('configuracoes/home_1_mobile.svg'),
-            'home_2'        => $this->fileManager->url('configuracoes/home_2.svg'),
+            'home_2' => $this->fileManager->url('configuracoes/home_2.svg'),
             'home_2_mobile' => $this->fileManager->url('configuracoes/home_2_mobile.svg'),
-            'home_3'        => $this->fileManager->url('configuracoes/home_3.svg'),
+            'home_3' => $this->fileManager->url('configuracoes/home_3.svg'),
             'home_3_mobile' => $this->fileManager->url('configuracoes/home_3_mobile.svg'),
         ];
 
         return view('home', compact('imagens'));
     }
+
     public function about()
     {
         $imagemSobre = $this->fileManager->url('admin/sobre.png');
 
         return view('about', compact('imagemSobre'));
     }
+
     public function projects()
     {
         return view('projects');
@@ -61,7 +63,7 @@ class MainController extends Controller
     public function events()
     {
 
-        $hoje = new DateTime();
+        $hoje = new DateTime;
 
         $diaSemana = (int) $hoje->format('w');
 
@@ -78,7 +80,7 @@ class MainController extends Controller
             $data = new DateTime($eventoSemanaAtual->data);
             $mes = $data->format('m');
             $dia = $data->format('d');
-            $eventoSemanaAtual->data = $dia . " de " . $this->getMes($mes);
+            $eventoSemanaAtual->data = $dia.' de '.$this->getMes($mes);
 
             $horario = new DateTime($eventoSemanaAtual->horario);
             $eventoSemanaAtual->horario = $horario->format('H:i');
@@ -92,12 +94,11 @@ class MainController extends Controller
 
         $eventosProximaSemana = Event::where('status', '=', 'Ativo')->whereBetween('data', [$inicioProximaSemana, $fimProximaSemana])->get();
 
-
         foreach ($eventosProximaSemana as $eventoProximaSemana) {
             $data = new DateTime($eventoProximaSemana->data);
             $mes = $data->format('m');
             $dia = $data->format('d');
-            $eventoProximaSemana->data = $dia . " de " . $this->getMes($mes);
+            $eventoProximaSemana->data = $dia.' de '.$this->getMes($mes);
 
             $horario = new DateTime($eventoProximaSemana->horario);
             $eventoProximaSemana->horario = $horario->format('H:i');
@@ -113,12 +114,11 @@ class MainController extends Controller
 
         $eventosProximoMes = Event::where('status', '=', 'Ativo')->whereMonth('data', $proximoMes)->get();
 
-
         foreach ($eventosProximoMes as $eventoProximoMes) {
             $data = new DateTime($eventoProximoMes->data);
             $mes = $data->format('m');
             $dia = $data->format('d');
-            $eventoProximoMes->data = $dia . " de " . $this->getMes($mes);
+            $eventoProximoMes->data = $dia.' de '.$this->getMes($mes);
 
             $horario = new DateTime($eventoProximoMes->horario);
             $eventoProximoMes->horario = $horario->format('H:i');
@@ -180,11 +180,10 @@ class MainController extends Controller
         $data = new DateTime($evento->data);
         $mes = $data->format('m');
         $dia = $data->format('d');
-        $evento->data = $dia . " de " . $this->getMes($mes);
+        $evento->data = $dia.' de '.$this->getMes($mes);
 
         $horario = new DateTime($evento->horario);
         $evento->horario = $horario->format('H:i');
-
 
         return view('event_detail', ['evento' => $evento, 'local' => $local]);
     }
@@ -192,7 +191,7 @@ class MainController extends Controller
     public function contact()
     {
         $imagemContato = $this->fileManager->url('admin/fale_conosco.svg');
-        
+
         return view('contact', compact('imagemContato'));
     }
 
@@ -215,7 +214,7 @@ class MainController extends Controller
             ]
         );
 
-        $nome = $request->input('nome');  
+        $nome = $request->input('nome');
         $telefone = $request->input('telefone');
         $telefoneTratado = Str::replace(['(', ')', '-', ' '], '', $telefone);
         $assunto = $request->input('assunto');
@@ -231,5 +230,4 @@ class MainController extends Controller
     {
         return view('confirm');
     }
-
 }

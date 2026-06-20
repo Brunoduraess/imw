@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -37,7 +37,7 @@ class UserController extends Controller
 
         foreach ($lastAccess as $access) {
             $quebraNome = explode(' ', $access->nome);
-            $access->nome = $quebraNome[0] . " " . end($quebraNome);
+            $access->nome = $quebraNome[0].' '.end($quebraNome);
             $access->data_acesso = date('d/m/Y H:i', strtotime($access->ultimo_acesso));
         }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
         $data = date('Y-m-d H:i:s');
         $senha = bcrypt('1234');
 
-        $user = new User();
+        $user = new User;
         $user->id = (string) Str::uuid();
         $user->nome = $nome;
         $user->email = $email;
@@ -112,7 +112,7 @@ class UserController extends Controller
             ->update([
                 'nome' => $request->input('nome'),
                 'email' => $request->input('email'),
-                'acesso' => $request->input('acesso')
+                'acesso' => $request->input('acesso'),
             ]);
 
         return redirect()->route('users');
@@ -123,7 +123,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->status = "Inativo";
+        $user->status = 'Inativo';
         $user->desativado_em = date('Y-m-d H:i:s');
         $user->desativado_por = session('user.nome');
         $user->save();
@@ -135,7 +135,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->status = "Ativo";
+        $user->status = 'Ativo';
         $user->desativado_em = null;
         $user->desativado_por = null;
         $user->save();

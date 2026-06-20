@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
 
 class EventTableSeeder extends Seeder
 {
@@ -29,7 +27,7 @@ class EventTableSeeder extends Seeder
                 'imagem_detalhe' => 'teste',
                 'status' => 'Ativo',
                 'criado_por' => '0000915b-434e-48e1-a837-048694f87d56',
-                'criado_em' => Carbon::now()
+                'criado_em' => Carbon::now(),
             ]
         );
     }
