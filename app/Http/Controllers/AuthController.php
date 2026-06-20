@@ -29,24 +29,24 @@ class AuthController extends Controller
         return redirect()->intended(route('menu'));
     }
 
-    public function forgot_password()
+    public function forgotPassword()
     {
         return view('admin/forgot_password');
     }
 
-    public function forgot_password_submit(ForgotPasswordRequest $request)
+    public function forgotPasswordSubmit(ForgotPasswordRequest $request)
     {
         Password::sendResetLink($request->only('email'));
 
         return redirect()->route('send_confirm');
     }
 
-    public function send_confirm()
+    public function sendConfirm()
     {
         return view('admin/send_confirm');
     }
 
-    public function update_password(Request $request, string $token)
+    public function updatePassword(Request $request, string $token)
     {
         return view('admin/update_password', [
             'email' => $request->query('email'),
@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function update_password_submit(ResetPasswordRequest $request, $token)
+    public function updatePasswordSubmit(ResetPasswordRequest $request, $token)
     {
         $status = Password::reset(
             [

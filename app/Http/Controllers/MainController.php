@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Main\ContactRequest;
-use App\Mail\contactMail;
+use App\Mail\ContactMail;
 use App\Managers\FileManager;
 use App\Models\Event;
 use App\Models\Location;
@@ -43,7 +43,7 @@ class MainController extends Controller
         return view('projects');
     }
 
-    public function project_detail($tipo)
+    public function projectDetail($tipo)
     {
         if ($tipo == 'educacional') {
             $nome = 'Projeto Segunda Chance';
@@ -171,7 +171,7 @@ class MainController extends Controller
         return $mesDescrito;
     }
 
-    public function event_detail($id)
+    public function eventDetail($id)
     {
         $evento = Event::find($id);
 
@@ -204,7 +204,7 @@ class MainController extends Controller
         $mensagem = $request->input('mensagem');
         $email = 'contato@imwve.com.br';
 
-        Mail::to($email)->bcc('brunoduraes03@gmail.com')->send(new contactMail($nome, $telefone, $telefoneTratado, $assunto, $mensagem));
+        Mail::to($email)->bcc('brunoduraes03@gmail.com')->send(new ContactMail($nome, $telefone, $telefoneTratado, $assunto, $mensagem));
 
         return redirect()->route('confirm');
     }
