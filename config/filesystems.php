@@ -15,6 +15,8 @@ return [
 
     'default' => env('FILESYSTEM_DISK', 'local'),
 
+    'assets' => env('ASSETS_DISK', 'r2'),
+
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks

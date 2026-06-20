@@ -8,9 +8,12 @@ use Illuminate\Support\Str;
 
 class FileManager
 {
-    public function __construct(
-        protected string $disk = 'r2'
-    ) {}
+    protected string $disk;
+
+    public function __construct(?string $disk = null)
+    {
+        $this->disk = $disk ?? config('filesystems.assets', 'r2');
+    }
 
     public function upload(
         UploadedFile $file,
