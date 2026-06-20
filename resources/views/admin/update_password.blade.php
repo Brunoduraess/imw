@@ -13,10 +13,11 @@
 
         <form action="{{ route('update_password_submit', $token) }}" id="form" method="POST">
             @csrf
+            <input type="hidden" name="email" value="{{ old('email', $email) }}">
             <div class="mb-3 senha">
                 <label for="senha" class="form-label">Nova senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe a nova senha"
-                    value="{{ old('senha') }}">
+                    autocomplete="new-password">
                 <svg xmlns="http://www.w3.org/2000/svg" class="olho" id="olho" fill="currentColor" class="bi bi-eye"
                     viewBox="0 0 16 16">
                     <path
@@ -39,7 +40,7 @@
             <div class="mb-3 senha">
                 <label for="senha" class="form-label">Confirme a nova senha:</label>
                 <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha"
-                    placeholder="Confirme a senha informada" value="{{ old('confirmaSenha') }}">
+                    placeholder="Confirme a senha informada" autocomplete="new-password">
                 <svg xmlns="http://www.w3.org/2000/svg" class="olho" id="olhoConfirma" fill="currentColor"
                     class="bi bi-eye" viewBox="0 0 16 16">
                     <path
@@ -59,6 +60,10 @@
             @error('confirmaSenha')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
+            @error('email')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
+            <p class="text-danger" id="errorMessage"></p>
             @if (session('error'))
                 <p class="text-danger">
                     {{ session('error') }}

@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nome', 100);
-            $table->string('email', 100)->unique();
-            $table->string('senha', 255);
-            $table->string('acesso', 50);
-            $table->string('status', 20);
-            $table->dateTime('ultimo_acesso')->nullable();
-            $table->dateTime('criado_em');
-            $table->dateTime('atualizado_em')->nullable();
-            $table->dateTime('desativado_em')->nullable();
-            $table->string('desativado_por', 100)->nullable();
-        });
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('nome', 100);
+                $table->string('email', 100)->unique();
+                $table->string('senha', 255);
+                $table->string('acesso', 50);
+                $table->string('status', 20);
+                $table->dateTime('ultimo_acesso')->nullable();
+                $table->dateTime('criado_em');
+                $table->dateTime('atualizado_em')->nullable();
+                $table->dateTime('desativado_em')->nullable();
+                $table->string('desativado_por', 100)->nullable();
+            });
+        }
     }
 
     /**

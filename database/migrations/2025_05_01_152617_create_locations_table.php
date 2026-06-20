@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nome', 100);
-            $table->string('responsavel', 100);
-            $table->string('tel_responsavel', 20);
-            $table->string('cep', 8);
-            $table->string('rua', 50);
-            $table->integer('numero');
-            $table->string('bairro', 50);
-            $table->string('cidade', 50);
-            $table->string('complemento', 100);
-        });
+        if (!Schema::hasTable('locations')) {
+            Schema::create('locations', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('nome', 100);
+                $table->string('responsavel', 100);
+                $table->string('tel_responsavel', 20);
+                $table->string('cep', 8);
+                $table->string('rua', 50);
+                $table->integer('numero');
+                $table->string('bairro', 50);
+                $table->string('cidade', 50);
+                $table->string('complemento', 100);
+            });
+        }
     }
 
     /**

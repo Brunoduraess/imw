@@ -112,7 +112,7 @@ class EventController extends Controller
         $event->imagem_agenda = $imagem_agenda;
         $event->imagem_detalhe = $imagem_detalhe;
         $event->criado_em = Carbon::now();
-        $event->criado_por = session('user.id');
+        $event->criado_por = auth()->id();
         $event->save();
 
         return redirect()->route('eventsAdmin');
@@ -198,7 +198,7 @@ class EventController extends Controller
                 'local_id' => $local,
                 'inscricao' => $inscricao,
                 'atualizado_em' => Carbon::now(),
-                'atualizado_por' => session('user.id'),
+                'atualizado_por' => auth()->id(),
             ]);
 
         if ($imagem_agenda) {
@@ -207,7 +207,7 @@ class EventController extends Controller
 
                     'imagem_agenda' => $imagem_agenda,
                     'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => session('user.id'),
+                    'atualizado_por' => auth()->id(),
                 ]);
         }
 
@@ -216,7 +216,7 @@ class EventController extends Controller
                 ->update([
                     'imagem_detalhe' => $imagem_detalhe,
                     'atualizado_em' => Carbon::now(),
-                    'atualizado_por' => session('user.id'),
+                    'atualizado_por' => auth()->id(),
                 ]);
         }
 
@@ -228,7 +228,7 @@ class EventController extends Controller
         Event::where('id', '=', $id)
             ->update([
                 'status' => 'Inativo',
-                'desativado_por' => session('user.id'),
+                'desativado_por' => auth()->id(),
                 'desativado_em' => Carbon::now(),
             ]);
 

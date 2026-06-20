@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\forgotPassMail;
-use App\Models\Token;
-use App\Models\User;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
@@ -15,46 +16,16 @@ class AuthController extends Controller
         return view('admin/login');
     }
 
-    public function loginSubmit(Request $request)
+    public function loginSubmit(LoginRequest $request)
     {
-        $request->validate(
-            [
-                'email' => 'required',
-                'senha' => 'required',
-            ],
-            [
-                'email.required' => 'O email é obrigatório',
-                'senha.required' => 'A senha é obrigatória',
-            ]
-        );
+        $request->authenticate();
+        $request->session()->regenerate();
 
-        $email = $request->input('email');
-        $senha = $request->input('senha');
-
-        $user = User::where('email', $email)->where('desativado_em', null)->first();
-
-        if (! $user) {
-            return redirect()->back()->withInput()->with('loginError', 'Email ou senha incorretos');
-        }
-
-        if (! password_verify($senha, $user->senha)) {
-            return redirect()->back()->withInput()->with('loginError', 'Email ou senha incorretos');
-        }
-
-        date_default_timezone_set('America/Bahia');
-
-        $user->ultimo_acesso = date('Y-m-d H:i:s');
+        $user = $request->user();
+        $user->ultimo_acesso = now();
         $user->save();
 
-        session([
-            'user' => [
-                'id' => $user->id,
-                'nome' => $user->nome,
-                'acesso' => $user->acesso,
-            ],
-        ]);
-
-        return redirect()->to('/menu');
+        return redirect()->intended(route('menu'));
     }
 
     public function forgot_password()
@@ -74,28 +45,7 @@ class AuthController extends Controller
             ]
         );
 
-        $email = $request->input('email');
-        $user = User::where('email', $email)->first();
-
-        if (! $user) {
-            return redirect()->back()->withInput()->with('error', 'Email não encontrado');
-        }
-
-        $token = uuid_create();
-
-        $token = new Token([
-            'id' => uuid_create(),
-            'token' => $token,
-            'email' => $email,
-            'data_criacao' => date('Y-m-d'),
-            'data_expiracao' => date('Y-m-d h:i:s', strtotime('+1 day')),
-        ]);
-
-        $token->save();
-
-        $link = url('/update_password/'.$token->token);
-
-        Mail::to($email)->send(new forgotPassMail($link));
+        Password::sendResetLink($request->only('email'));
 
         return redirect()->route('send_confirm');
     }
@@ -105,68 +55,59 @@ class AuthController extends Controller
         return view('admin/send_confirm');
     }
 
-    public function update_password($token)
+    public function update_password(Request $request, string $token)
     {
-        $tokenRecord = Token::where('token', $token)->first();
-
-        if (! $tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
-            return redirect()->route('login');
-        }
-
-        return view('admin/update_password', ['token' => $token]);
+        return view('admin/update_password', [
+            'email' => $request->query('email'),
+            'token' => $token,
+        ]);
     }
 
     public function update_password_submit(Request $request, $token)
     {
         $request->validate(
             [
-                'senha' => 'required',
-                'confirmaSenha' => 'required',
+                'email' => ['required', 'email'],
+                'senha' => ['required', 'same:confirmaSenha', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
+                'confirmaSenha' => ['required'],
             ],
             [
+                'email.required' => 'O email é obrigatório',
+                'email.email' => 'O email deve ser válido',
                 'senha.required' => 'A senha é obrigatória',
+                'senha.same' => 'As senhas não coincidem',
                 'confirmaSenha.required' => 'A confirmação da senha é obrigatória',
             ]
         );
 
-        $senha = $request->input('senha');
-        $confirmaSenha = $request->input('confirmaSenha');
+        $status = Password::reset(
+            [
+                'email' => $request->input('email'),
+                'password' => $request->input('senha'),
+                'password_confirmation' => $request->input('confirmaSenha'),
+                'token' => $token,
+            ],
+            function ($user, string $password) {
+                $user->senha = Hash::make($password);
+                $user->save();
+            }
+        );
 
-        if ($senha !== $confirmaSenha) {
-            return redirect()->back()->withInput()->with('error', 'As senhas não coincidem');
+        if ($status !== Password::PASSWORD_RESET) {
+            return back()->withInput($request->only('email'))->withErrors([
+                'email' => __($status),
+            ]);
         }
-
-        if (! preg_match('/[A-Z]/', $senha)) {
-            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos uma letra maiúscula');
-        }
-
-        if (! preg_match('/[0-9]/', $senha)) {
-            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um número');
-        }
-
-        if (! preg_match('/[\W_]/', $senha)) {
-            return redirect()->back()->withInput()->with('error', 'A senha deve conter pelo menos um caractere especial');
-        }
-
-        $tokenRecord = Token::where('token', $token)->first();
-
-        if (! $tokenRecord || strtotime($tokenRecord->data_expiracao) < time()) {
-            return redirect()->route('login');
-        }
-
-        $user = User::where('email', $tokenRecord->email)->first();
-        $user->senha = bcrypt($request->input('senha'));
-        $user->save();
-
-        $tokenRecord->delete();
 
         return redirect()->route('login')->with('success', 'Senha atualizada com sucesso');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->flush();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return redirect()->to('/login');
+        return redirect()->route('login');
     }
 }

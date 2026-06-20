@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_types', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->string('nome', 100);
-            $table->text('descricao');
-            $table->integer('total_dias');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('event_types')) {
+            Schema::create('event_types', function (Blueprint $table) {
+                $table->uuid('id');
+                $table->string('nome', 100);
+                $table->text('descricao');
+                $table->integer('total_dias');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

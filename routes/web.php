@@ -7,7 +7,6 @@ use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\Logado;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MainController::class)->group(function () {
@@ -28,12 +27,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/forgot_password', 'forgot_password')->name('forgot_password');
     Route::post('/forgot_password_submit', 'forgot_password_submit')->name('forgot_password_submit');
     Route::get('/send_confirm', 'send_confirm')->name('send_confirm');
-    Route::get('/update_password/{token}', 'update_password')->name('update_password');
+    Route::get('/update_password/{token}', 'update_password')->name('password.reset');
     Route::post('/update_password_submit/{token}', 'update_password_submit')->name('update_password_submit');
 });
 
-Route::middleware(Logado::class)->group(function () {
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/menu', [AdminController::class, 'menu'])->name('menu');
 
     Route::controller(UserController::class)->group(function () {

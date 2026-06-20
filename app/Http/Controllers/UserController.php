@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -54,7 +56,7 @@ class UserController extends Controller
         $request->validate(
             [
                 'nome' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users,email',
                 'acesso' => 'required',
             ],
             [
@@ -69,18 +71,17 @@ class UserController extends Controller
         $email = $request->input('email');
         $acesso = $request->input('acesso');
         $status = 'Ativo';
-        $data = date('Y-m-d H:i:s');
-        $senha = bcrypt('1234');
-
         $user = new User;
         $user->id = (string) Str::uuid();
         $user->nome = $nome;
         $user->email = $email;
         $user->acesso = $acesso;
         $user->status = $status;
-        $user->criado_em = $data;
-        $user->senha = $senha;
+        $user->criado_em = now();
+        $user->senha = Hash::make(Str::random(64));
         $user->save();
+
+        Password::sendResetLink(['email' => $email]);
 
         return redirect()->route('users');
     }
@@ -125,7 +126,7 @@ class UserController extends Controller
 
         $user->status = 'Inativo';
         $user->desativado_em = date('Y-m-d H:i:s');
-        $user->desativado_por = session('user.nome');
+        $user->desativado_por = auth()->user()->nome;
         $user->save();
 
         return redirect()->route('users');

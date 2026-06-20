@@ -24,7 +24,7 @@
             <div class="mb-3 senha">
                 <label for="senha" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe a sua senha"
-                    value="{{ old('senha') }}">
+                    autocomplete="current-password">
                 <svg xmlns="http://www.w3.org/2000/svg" class="olho" id="olho" fill="currentColor" class="bi bi-eye"
                     viewBox="0 0 16 16">
                     <path
@@ -44,11 +44,6 @@
             @error('senha')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
-            @if (session('loginError'))
-                <div class="class alert alert-danger">
-                    {{ session('loginError') }}
-                </div>
-            @endif
             <button type="submit" class="btn btn-success">Entrar</button>
         </form>
         <a href="{{ route('forgot_password') }}" class="troca_senha">Esqueci minha senha / primeiro acesso</a>
