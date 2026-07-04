@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\Records\UserRecordException;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -23,8 +25,13 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
-        $user->ultimo_acesso = now();
-        $user->save();
+
+        try {
+            $user->ultimo_acesso = now();
+            $user->save();
+        } catch (Throwable $exception) {
+            throw UserRecordException::updateLastAccessFailed($exception);
+        }
 
         return redirect()->intended(route('menu'));
     }
@@ -64,8 +71,12 @@ class AuthController extends Controller
                 'token' => $token,
             ],
             function ($user, string $password) {
-                $user->senha = Hash::make($password);
-                $user->save();
+                try {
+                    $user->senha = Hash::make($password);
+                    $user->save();
+                } catch (Throwable $exception) {
+                    throw UserRecordException::updatePasswordFailed($exception);
+                }
             }
         );
 

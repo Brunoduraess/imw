@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Exceptions\Records\UserRecordException;
 use App\Http\Resources\Admin\LastAccessResource;
 use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Throwable;
 
 class UserService
 {
@@ -35,19 +37,23 @@ class UserService
 
     public function create(array $data): User
     {
-        $user = User::create([
-            'id' => (string) Str::uuid(),
-            'nome' => $data['nome'],
-            'email' => $data['email'],
-            'acesso' => $data['acesso'],
-            'status' => 'Ativo',
-            'criado_em' => now(),
-            'senha' => Hash::make(Str::random(64)),
-        ]);
+        try {
+            $user = User::create([
+                'id' => (string) Str::uuid(),
+                'nome' => $data['nome'],
+                'email' => $data['email'],
+                'acesso' => $data['acesso'],
+                'status' => 'Ativo',
+                'criado_em' => now(),
+                'senha' => Hash::make(Str::random(64)),
+            ]);
 
-        Password::sendResetLink(['email' => $user->email]);
+            Password::sendResetLink(['email' => $user->email]);
 
-        return $user;
+            return $user;
+        } catch (Throwable $exception) {
+            throw UserRecordException::createFailed($exception);
+        }
     }
 
     public function find(string $id): ?User
@@ -57,28 +63,40 @@ class UserService
 
     public function update(array $data): void
     {
-        User::where('id', $data['id'])->update([
-            'nome' => $data['nome'],
-            'email' => $data['email'],
-            'acesso' => $data['acesso'],
-        ]);
+        try {
+            User::where('id', $data['id'])->update([
+                'nome' => $data['nome'],
+                'email' => $data['email'],
+                'acesso' => $data['acesso'],
+            ]);
+        } catch (Throwable $exception) {
+            throw UserRecordException::updateFailed($exception);
+        }
     }
 
     public function disable(string $id, string $disabledBy): void
     {
-        User::whereKey($id)->update([
-            'status' => 'Inativo',
-            'desativado_em' => now(),
-            'desativado_por' => $disabledBy,
-        ]);
+        try {
+            User::whereKey($id)->update([
+                'status' => 'Inativo',
+                'desativado_em' => now(),
+                'desativado_por' => $disabledBy,
+            ]);
+        } catch (Throwable $exception) {
+            throw UserRecordException::disableFailed($exception);
+        }
     }
 
     public function enable(string $id): void
     {
-        User::whereKey($id)->update([
-            'status' => 'Ativo',
-            'desativado_em' => null,
-            'desativado_por' => null,
-        ]);
+        try {
+            User::whereKey($id)->update([
+                'status' => 'Ativo',
+                'desativado_em' => null,
+                'desativado_por' => null,
+            ]);
+        } catch (Throwable $exception) {
+            throw UserRecordException::enableFailed($exception);
+        }
     }
 }

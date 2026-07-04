@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\Records\EventRecordException;
 use App\Http\Resources\Admin\EventResource;
 use App\Http\Resources\Admin\EventTypeSummaryResource;
 use App\Models\Event;
@@ -9,6 +10,7 @@ use App\Models\EventType;
 use App\Models\Location;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 class EventService
 {
@@ -49,23 +51,27 @@ class EventService
 
     public function create(array $data, string $userId): Event
     {
-        $id = (string) Str::uuid();
+        try {
+            $id = (string) Str::uuid();
 
-        return Event::create([
-            'id' => $id,
-            'nome' => $data['nome'],
-            'descricao' => $data['descricao'],
-            'tipo' => $this->eventTypeId($data['tipo']),
-            'data' => $data['data'],
-            'horario' => $data['horario'],
-            'local_id' => $data['local'],
-            'inscricao' => $this->formatPrice($data['valor'] ?? null),
-            'imagem_agenda' => Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']),
-            'imagem_detalhe' => Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']),
-            'status' => 'Ativo',
-            'criado_em' => now(),
-            'criado_por' => $userId,
-        ]);
+            return Event::create([
+                'id' => $id,
+                'nome' => $data['nome'],
+                'descricao' => $data['descricao'],
+                'tipo' => $this->eventTypeId($data['tipo']),
+                'data' => $data['data'],
+                'horario' => $data['horario'],
+                'local_id' => $data['local'],
+                'inscricao' => $this->formatPrice($data['valor'] ?? null),
+                'imagem_agenda' => Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']),
+                'imagem_detalhe' => Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']),
+                'status' => 'Ativo',
+                'criado_em' => now(),
+                'criado_por' => $userId,
+            ]);
+        } catch (Throwable $exception) {
+            throw EventRecordException::createFailed($exception);
+        }
     }
 
     public function getEditData(string $id): array
@@ -79,46 +85,58 @@ class EventService
 
     public function update(array $data, string $userId): void
     {
-        $id = $data['id'];
-        $attributes = [
-            'nome' => $data['nome'],
-            'descricao' => $data['descricao'],
-            'tipo' => $this->eventTypeId($data['tipo']),
-            'data' => $data['data'],
-            'horario' => $data['horario'],
-            'local_id' => $data['local'],
-            'inscricao' => $this->formatPrice($data['valor'] ?? null),
-            'atualizado_em' => now(),
-            'atualizado_por' => $userId,
-        ];
+        try {
+            $id = $data['id'];
+            $attributes = [
+                'nome' => $data['nome'],
+                'descricao' => $data['descricao'],
+                'tipo' => $this->eventTypeId($data['tipo']),
+                'data' => $data['data'],
+                'horario' => $data['horario'],
+                'local_id' => $data['local'],
+                'inscricao' => $this->formatPrice($data['valor'] ?? null),
+                'atualizado_em' => now(),
+                'atualizado_por' => $userId,
+            ];
 
-        if (! empty($data['imagem_agenda'])) {
-            $attributes['imagem_agenda'] = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']);
+            if (! empty($data['imagem_agenda'])) {
+                $attributes['imagem_agenda'] = Storage::disk('public')->put("uploads/events/$id/imagem_agenda", $data['imagem_agenda']);
+            }
+
+            if (! empty($data['imagem_detalhe'])) {
+                $attributes['imagem_detalhe'] = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']);
+            }
+
+            Event::where('id', $id)->update($attributes);
+        } catch (Throwable $exception) {
+            throw EventRecordException::updateFailed($exception);
         }
-
-        if (! empty($data['imagem_detalhe'])) {
-            $attributes['imagem_detalhe'] = Storage::disk('public')->put("uploads/events/$id/imagem_detalhe", $data['imagem_detalhe']);
-        }
-
-        Event::where('id', $id)->update($attributes);
     }
 
     public function disable(string $id, string $userId): void
     {
-        Event::where('id', $id)->update([
-            'status' => 'Inativo',
-            'desativado_por' => $userId,
-            'desativado_em' => now(),
-        ]);
+        try {
+            Event::where('id', $id)->update([
+                'status' => 'Inativo',
+                'desativado_por' => $userId,
+                'desativado_em' => now(),
+            ]);
+        } catch (Throwable $exception) {
+            throw EventRecordException::disableFailed($exception);
+        }
     }
 
     public function enable(string $id): void
     {
-        Event::where('id', $id)->update([
-            'status' => 'Ativo',
-            'desativado_por' => null,
-            'desativado_em' => null,
-        ]);
+        try {
+            Event::where('id', $id)->update([
+                'status' => 'Ativo',
+                'desativado_por' => null,
+                'desativado_em' => null,
+            ]);
+        } catch (Throwable $exception) {
+            throw EventRecordException::enableFailed($exception);
+        }
     }
 
     private function eventTypeId(string $type): string

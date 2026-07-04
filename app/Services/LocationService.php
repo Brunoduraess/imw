@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Exceptions\Records\LocationRecordException;
 use App\Http\Resources\Admin\LocationResource;
 use App\Models\Location;
 use Illuminate\Support\Str;
+use Throwable;
 
 class LocationService
 {
@@ -15,11 +17,15 @@ class LocationService
 
     public function create(array $data): Location
     {
-        return Location::create([
-            'id' => (string) Str::uuid(),
-            ...$this->attributes($data),
-            'complemento' => $data['complemento'] ?? '',
-        ]);
+        try {
+            return Location::create([
+                'id' => (string) Str::uuid(),
+                ...$this->attributes($data),
+                'complemento' => $data['complemento'] ?? '',
+            ]);
+        } catch (Throwable $exception) {
+            throw LocationRecordException::createFailed($exception);
+        }
     }
 
     public function find(string $id): ?Location
@@ -29,7 +35,11 @@ class LocationService
 
     public function update(array $data): void
     {
-        Location::whereKey($data['id'])->update($this->attributes($data, true));
+        try {
+            Location::whereKey($data['id'])->update($this->attributes($data, true));
+        } catch (Throwable $exception) {
+            throw LocationRecordException::updateFailed($exception);
+        }
     }
 
     private function attributes(array $data, bool $removeDots = false): array
